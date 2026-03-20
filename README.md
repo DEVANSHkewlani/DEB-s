@@ -6,14 +6,6 @@ DEB's Health Navigator is a state-of-the-art health information ecosystem that m
 
 ## 🚀 Key Features
 
-### 🔍 **AI Medicine Lens** (NEW)
-*   **Live OCR Scanning:** Point your camera at any medicine packaging to extract the brand or generic name instantly using **Tesseract.js**.
-*   **3-Tier Intelligent Lookup:**
-    1.  **Local DB:** Searches for verified Indian drug records (CDSCO based).
-    2.  **Global API:** Fallback to **OpenFDA** for international drug profiles.
-    3.  **AI RAG:** Final fallback to **Groq Llama-3** for detailed pharmacological synthesis.
-*   **Contextual AI Pharmacist:** Ask follow-up questions about dosage, side effects, and pregnancy safety for the scanned medicine.
-
 ### 🗺️ **Interactive Health Maps & Emergency Connect**
 *   **Proximity Search:** Locate the nearest **Hospitals, Pharmacies, and Doctors** using **OpenStreetMap (OSM)** and **Leaflet**.
 *   **One-Tap Emergency:** A specialized mode that identifies the closest medical facility and provides immediate **AI-generated first aid protocols** tailored to the suspected condition.
@@ -28,6 +20,14 @@ DEB's Health Navigator is a state-of-the-art health information ecosystem that m
 *   **Real-time Tracking:** Parallel scraping engine monitors **WHO, CDC, ECDC, MoHFW, ICMR, and NCDC**.
 *   **Hyper-Local Alerts:** Geofenced outbreak notifications at the State and District level in India.
 *   **Historical Trends:** Visualizes disease growth rates using multi-year data from the **NVBDCP**.
+
+### 🔍 **AI Medicine Lens** (NEW)
+*   **Live OCR Scanning:** Point your camera at any medicine packaging to extract the brand or generic name instantly using **Tesseract.js**.
+*   **3-Tier Intelligent Lookup:**
+    1.  **Local DB:** Searches for verified Indian drug records (CDSCO based).
+    2.  **Global API:** Fallback to **OpenFDA** for international drug profiles.
+    3.  **AI RAG:** Final fallback to **Groq Llama-3** for detailed pharmacological synthesis.
+*   **Contextual AI Pharmacist:** Ask follow-up questions about dosage, side effects, and pregnancy safety for the scanned medicine.
 
 ### 🧩 **Knowledge Gap System**
 *   **System Self-Correction:** Identifies when users ask questions the system cannot answer, flagging "Knowledge Gaps" for automated or manual data replenishment.
