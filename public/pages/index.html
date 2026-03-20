@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deb's Health Navigator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/chatbot.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-black text-white">
+
+
+    <!-- Animated Gradient Background -->
+    <div class="chat-background"></div>
+
+    <!-- Liquid Glass Overlay -->
+    <div class="liquid-glass"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar chat-content">
+        <div class="p-4 flex flex-col h-full">
+            <!-- Logo & Menu Toggle -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-robot text-blue-500 text-xl"></i>
+                    <span class="font-semibold">Deb's</span>
+                </div>
+                <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- New Chat Button — distinct gradient style -->
+            <button onclick="newChat()" class="new-chat-btn w-full text-white py-3 rounded-xl flex items-center justify-center gap-2 mb-4 transition">
+                <i class="fas fa-plus text-sm"></i>
+                <span class="text-sm font-semibold">New Chat</span>
+            </button>
+
+            <!-- Feature nav buttons -->
+            <div class="space-y-1 mb-4">
+
+                <!-- Report — amber border -->
+                <button onclick="window.location.href='report.html'" class="nav-btn nav-btn-amber w-full text-white py-2.5 px-3 rounded-xl flex items-center gap-3 text-sm">
+                    <span class="nav-icon" style="color:rgba(251,191,36,0.85)"><i class="fas fa-notes-medical"></i></span>
+                    <span>Report</span>
+                </button>
+
+                <!-- Alerts — red border -->
+                <button id="alertsBtn" onclick="window.location.href='alerts.html'" class="nav-btn nav-btn-red relative w-full text-white py-2.5 px-3 rounded-xl flex items-center gap-3 text-sm">
+                    <span class="nav-icon" style="color:rgba(248,113,113,0.85)"><i class="fas fa-triangle-exclamation"></i></span>
+                    <span>Disease Trends</span>
+                    <span id="alertsBadge" class="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-red-600 text-white" style="font-size:10px">0</span>
+                </button>
+
+                <!-- Emergency — rose border -->
+                <button onclick="window.location.href='emergency.html'" class="nav-btn nav-btn-rose w-full text-white py-2.5 px-3 rounded-xl flex items-center gap-3 text-sm">
+                    <span class="nav-icon" style="color:rgba(251,113,133,0.85)"><i class="fas fa-truck-medical"></i></span>
+                    <span>Emergency</span>
+                </button>
+
+                <!-- Education — purple border -->
+                <button onclick="window.location.href='education.html'" class="nav-btn nav-btn-purple w-full text-white py-2.5 px-3 rounded-xl flex items-center gap-3 text-sm">
+                    <span class="nav-icon" style="color:rgba(196,181,253,0.85)"><i class="fas fa-graduation-cap"></i></span>
+                    <span>Education</span>
+                </button>
+
+                <!-- Connect — green border -->
+                <button onclick="window.location.href='connect.html'" class="nav-btn nav-btn-green w-full text-white py-2.5 px-3 rounded-xl flex items-center gap-3 text-sm">
+                    <span class="nav-icon" style="color:rgba(134,239,172,0.85)"><i class="fas fa-user-doctor"></i></span>
+                    <span>Connect Nearby</span>
+                </button>
+
+                <!-- Medicine Lens — cyan border -->
+                <button onclick="window.location.href='lens.html'" class="nav-btn nav-btn-cyan w-full text-white py-2.5 px-3 rounded-xl flex items-center gap-3 text-sm">
+                    <span class="nav-icon" style="color:rgba(103,232,249,0.85)"><i class="fas fa-camera"></i></span>
+                    <span>Medicine Lens</span>
+                </button>
+
+            </div>
+
+            <!-- History Section -->
+            <div class="mb-4">
+                <h3 class="text-gray-400 text-xs uppercase tracking-wider mb-3 px-1">History</h3>
+                <div class="space-y-1 overflow-y-auto" id="historyList" style="max-height: 220px;">
+                </div>
+            </div>
+
+            <!-- Settings at bottom -->
+            <div class="mt-auto">
+                <a href="./settings.html" class="nav-btn nav-btn-gray w-full text-gray-300 py-2.5 px-3 rounded-xl flex items-center gap-3 text-sm">
+                    <span class="nav-icon" style="color:rgba(255,255,255,0.4)"><i class="fas fa-cog"></i></span>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content flex chat-content">
+        <!-- Chat Area -->
+        <div class="flex-1 flex flex-col h-screen">
+            <!-- Top bar -->
+            <div class="sticky top-4 z-10 px-4 sm:px-6 mb-4">
+                <div class="top-bar-container">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleSidebar()" id="menuToggleBtn" class="top-bar-btn">
+                                <i class="fas fa-bars text-sm"></i>
+                            </button>
+                            <h1 id="chatTitle"
+                                class="text-base sm:text-lg font-semibold cursor-pointer hover:text-blue-400 transition"
+                                onclick="editChatTitle()" title="Click to rename">New Chat</h1>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <!-- Language Selector -->
+                            <div id="langWrapper" class="relative">
+                                <button id="langToggleBtn" class="top-bar-btn flex items-center gap-2 px-3">
+                                    <i class="fas fa-globe text-sm"></i>
+                                    <span id="selectedLang" class="text-sm hidden sm:inline">English</span>
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </button>
+                                <div id="languageDropdown"
+                                    class="language-dropdown hidden absolute right-0 top-full mt-2 w-72 bg-gray-800 rounded-lg shadow-xl border border-gray-700 py-2 max-h-96 overflow-hidden flex flex-col z-50">
+                                    <div class="px-3 py-2 border-b border-gray-700">
+                                        <div class="relative">
+                                            <i
+                                                class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                                            <input type="text" id="languageSearch" placeholder="Search languages..."
+                                                class="w-full pl-9 pr-3 py-2 bg-gray-900 text-white text-sm rounded border border-gray-700 focus:outline-none focus:border-blue-500" />
+                                        </div>
+                                    </div>
+                                    <div id="languageList" class="overflow-y-auto" style="max-height: 320px;">
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="english" data-code="en-US">English</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="hindi हिन्दी" data-code="hi-IN">हिन्दी (Hindi)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="bengali বাংলা" data-code="bn-IN">বাংলা (Bengali)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="telugu తెలుగు" data-code="te-IN">తెలుగు (Telugu)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="marathi मराठी" data-code="mr-IN">मराठी (Marathi)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="tamil தமிழ்" data-code="ta-IN">தமிழ் (Tamil)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="gujarati ગુજરાતી" data-code="gu-IN">ગુજરાતી (Gujarati)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="kannada ಕನ್ನಡ" data-code="kn-IN">ಕನ್ನಡ (Kannada)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="malayalam മലയാളം" data-code="ml-IN">മലയാളം (Malayalam)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="punjabi ਪੰਜਾਬੀ" data-code="pa-IN">ਪੰਜਾਬੀ (Punjabi)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="spanish español" data-code="es-ES">Español (Spanish)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="french français" data-code="fr-FR">Français (French)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="german deutsch" data-code="de-DE">Deutsch (German)</button>
+                                        <button class="language-item w-full text-left px-4 py-2 hover:bg-gray-700 transition text-sm" data-lang="arabic العربية" data-code="ar-SA">العربية (Arabic)</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Voice Recitation Toggle -->
+                            <button onclick="toggleVoice()" id="voiceBtn" class="top-bar-btn" title="Voice Recitation">
+                                <i class="fas fa-volume-up text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="messagesContainer" class="flex-1 overflow-y-auto p-6 scroll-smooth" style="padding-bottom: 180px;">
+                <!-- Chat Messages (always visible) -->
+                <div id="chatMessages" class="space-y-6 max-w-4xl mx-auto"></div>
+            </div>
+
+            <!-- Input Area -->
+            <div id="inputArea" class="fixed bottom-0 left-0 right-0 p-4 z-10 input-area-centered">
+                <div class="max-w-4xl mx-auto">
+                    <div id="greetingText" class="greeting-container mb-6">
+                        <div class="greeting-sub">How may I help you?</div>
+                    </div>
+                    <div class="input-container">
+                        <textarea id="messageInput" rows="1" placeholder="Ask anything..."
+                            class="w-full bg-transparent text-white resize-none focus:outline-none"
+                            onkeydown="handleKeyPress(event)"></textarea>
+
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="input-actions">
+                                <button onclick="attachFile()" class="input-action-btn" title="Attach file">
+                                    <i class="fas fa-paperclip text-sm"></i>
+                                </button>
+                                <button onclick="insertImage()" class="input-action-btn" title="Insert image">
+                                    <i class="fas fa-image text-sm"></i>
+                                </button>
+                                <button onclick="startVoiceInput()" class="input-action-btn" title="Voice input">
+                                    <i class="fas fa-microphone text-sm"></i>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-gray-500">Debhy 1.B</span>
+                                <button onclick="sendMessage()" class="send-btn">
+                                    <i class="fas fa-paper-plane text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center mt-2">AI can make mistakes. Please verify important
+                        information.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artifact Panel (for documents, code) -->
+        <div id="artifactPanel" class="artifact-panel bg-[#0d0d0d] border-l border-gray-800 h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold">Document Preview</h3>
+                    <button onclick="closeArtifact()" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="artifactContent" class="bg-gray-900 rounded-lg p-6 border border-gray-800">
+                    <!-- Artifact content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Serious Outbreak Overlay -->
+    <div id="outbreakOverlay" class="fixed inset-0 hidden z-[9999]">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div
+            class="absolute inset-x-0 top-10 mx-auto w-[95%] max-w-2xl glass rounded-2xl border border-red-800/60 shadow-2xl">
+            <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-triangle-exclamation text-red-400"></i>
+                    <h3 class="font-semibold">Serious outbreak nearby</h3>
+                </div>
+                <button id="obClose" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-5">
+                <p id="obMessage" class="text-gray-300 text-sm">An outbreak has been detected in your region.</p>
+                <div class="mt-4 flex items-center gap-2">
+                    <a href="./alerts.html"
+                        class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 border border-red-500">View details</a>
+                    <button id="obDismiss"
+                        class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-gray-700">Dismiss</button>
+                </div>
+                <p class="text-[12px] text-gray-500 mt-3">Stay informed and follow prevention steps to reduce spread.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file input -->
+    <input type="file" id="fileInput" class="hidden" onchange="handleFileUpload(event)">
+
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1162 @@
+/Users/devanshkewlani/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+============================================================
+DEB's Health Navigator — Global Parallel Scraper System
+Started at: 2026-02-12 01:55:32.442859
+Concurrency: 5 threads
+============================================================
+
+[2026-02-12 01:55:32.723251] ---> Starting WHO Scraper...
+[2026-02-12 01:55:32.723269] Starting WHO Factsheet Scraping...
+
+[2026-02-12 01:55:32.723393] ---> Starting CDC Scraper...
+[2026-02-12 01:55:32.723398] Starting CDC Scraping...
+
+[2026-02-12 01:55:32.723520] ---> Starting ECDC Scraper...
+[2026-02-12 01:55:32.723530] Starting ECDC Factsheet Scraping...
+
+[2026-02-12 01:55:32.723594] ---> Starting NCDC Scraper...
+[2026-02-12 01:55:32.723599] Starting NCDC Scraping...
+
+[2026-02-12 01:55:32.723696] ---> Starting MoHFW Scraper...
+[2026-02-12 01:55:32.723706] Starting MoHFW Scraping...
+[2026-02-12 01:55:34.848514] <--- Finished ECDC Scraper.
+
+[2026-02-12 01:55:34.848583] ---> Starting ICMR Scraper...
+[2026-02-12 01:55:34.848610] Starting ICMR Scraping...
+[2026-02-12 01:55:38.326344] <--- Finished ICMR Scraper.
+
+[2026-02-12 01:55:38.326424] ---> Starting NHM Scraper...
+[2026-02-12 01:55:38.326435] Starting NHM Scraping...
+[2026-02-12 01:55:39.907452] <--- Finished NHM Scraper.
+
+[2026-02-12 01:55:39.907520] ---> Starting StateDept Scraper...
+[2026-02-12 01:55:39.907534] Starting State Health Department Scraping...
+  Scraping Himachal Pradesh...
+Processing NCDC PDF: https://ncdc.mohfw.gov.in/wp-content/uploads/2025/11/Ministrys-DO-dated-01.11.2025-1.pdf
+Error fetching https://hphealth.nic.in with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x000000010084b928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000100843c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x000000010032683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x000000010031ea00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x000000010031111c cxxbridge1$string$len + 5152
+5   chromedriver                        0x0000000100312c24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x0000000100311588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x0000000100310d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x0000000100310a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x000000010030e620 chromedriver + 222752
+10  chromedriver                        0x000000010030f0ec chromedriver + 225516
+11  chromedriver                        0x0000000100329d30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x00000001003afad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x00000001003aefe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x000000010036407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x000000010080a884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x000000010080dfcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x00000001007ef578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x000000010080e850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x00000001007df640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x0000000100832194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x0000000100832310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x000000010084385c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Jammu & Kashmir...
+Error fetching https://www.cdc.gov/malaria/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/malaria/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.jkhealth.org with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001049cf928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001049c7c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001044aa83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001044a2a00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x000000010449511c cxxbridge1$string$len + 5152
+5   chromedriver                        0x0000000104496c24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x0000000104495588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x0000000104494d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x0000000104494a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x0000000104492620 chromedriver + 222752
+10  chromedriver                        0x00000001044930ec chromedriver + 225516
+11  chromedriver                        0x00000001044add30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x0000000104533ad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x0000000104532fe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x00000001044e807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x000000010498e884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x0000000104991fcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x0000000104973578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x0000000104992850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x0000000104963640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x00000001049b6194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x00000001049b6310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x00000001049c785c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Punjab...
+  Scraping Haryana...
+Processing NCDC PDF: https://ncdc.mohfw.gov.in/wp-content/uploads/2025/07/Advisory-Leptospirosis-DGHS-DO-letter-May2025.pdf
+Error fetching https://haryanahealth.nic.in with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000102ba3928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000102b9bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x000000010267e83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102676a00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x000000010266911c cxxbridge1$string$len + 5152
+5   chromedriver                        0x000000010266ac24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x0000000102669588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x0000000102668d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x0000000102668a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x0000000102666620 chromedriver + 222752
+10  chromedriver                        0x00000001026670ec chromedriver + 225516
+11  chromedriver                        0x0000000102681d30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x0000000102707ad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x0000000102706fe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x00000001026bc07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x0000000102b62884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x0000000102b65fcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x0000000102b47578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x0000000102b66850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x0000000102b37640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x0000000102b8a194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x0000000102b8a310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x0000000102b9b85c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Delhi...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/ebola with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/ebola. Falling back to Selenium.
+Error fetching https://www.cdc.gov/influenza/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/influenza/index.html. Falling back to Selenium.
+[2026-02-12 01:56:10.139513] <--- Finished MoHFW Scraper.
+  Scraping Uttarakhand...
+Error fetching https://www.cdc.gov/influenza/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/influenza/signs-symptoms/. Falling back to Selenium.
+  Scraping Uttar Pradesh...
+Error fetching http://uphealth.up.nic.in with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000100cff928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000100cf7c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001007da83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001007d2a00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x00000001007c511c cxxbridge1$string$len + 5152
+5   chromedriver                        0x00000001007c6c24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x00000001007c5588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x00000001007c4d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x00000001007c4a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x00000001007c2620 chromedriver + 222752
+10  chromedriver                        0x00000001007c30ec chromedriver + 225516
+11  chromedriver                        0x00000001007ddd30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x0000000100863ad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x0000000100862fe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x000000010081807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x0000000100cbe884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x0000000100cc1fcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x0000000100ca3578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x0000000100cc2850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x0000000100c93640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x0000000100ce6194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x0000000100ce6310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x0000000100cf785c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Maharashtra...
+Error fetching https://www.cdc.gov/influenza/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/influenza/prevention/index.html. Falling back to Selenium.
+  Scraping Rajasthan...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/ebola with selenium: Message: timeout: Timed out receiving message from renderer: 29.817
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x000000010503f928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000105037c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000104b1a83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104b04cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104b04a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104b02620 chromedriver + 222752
+6   chromedriver                        0x0000000104b03214 chromedriver + 225812
+7   chromedriver                        0x0000000104b10bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000104b27508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104b03880 chromedriver + 227456
+10  chromedriver                        0x0000000104b272d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000104ba32f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000104b5807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000104ffe884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000105001fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000104fe3578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000105002850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000104fd3640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000105026194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000105026310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010503785c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.cdc.gov/influenza/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/influenza/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/polio with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/polio. Falling back to Selenium.
+Error fetching https://www.cdc.gov/typhoid/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/typhoid/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/typhoid/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/typhoid/signs-symptoms/. Falling back to Selenium.
+Error fetching https://rajswasthya.nic.in with selenium: Message: timeout: Timed out receiving message from renderer: -0.005
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001025cb928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001025c3c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001020a683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102090cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102090a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x000000010208e620 chromedriver + 222752
+6   chromedriver                        0x000000010208f214 chromedriver + 225812
+7   chromedriver                        0x000000010209cbc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x00000001020b3508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x000000010208f880 chromedriver + 227456
+10  chromedriver                        0x00000001020b32d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x000000010212ef20 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 633828
+12  chromedriver                        0x00000001020e407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x000000010258a884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x000000010258dfcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x000000010256f578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x000000010258e850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x000000010255f640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x00000001025b2194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x00000001025b2310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x00000001025c385c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Gujarat...
+Error fetching https://health.gujarat.gov.in with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001014a3928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010149bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000100f7e83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000100f76a00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x0000000100f6911c cxxbridge1$string$len + 5152
+5   chromedriver                        0x0000000100f6ac24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x0000000100f69588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x0000000100f68d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x0000000100f68a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x0000000100f66620 chromedriver + 222752
+10  chromedriver                        0x0000000100f670ec chromedriver + 225516
+11  chromedriver                        0x0000000100f81d30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x0000000101007ad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x0000000101006fe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x0000000100fbc07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x0000000101462884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x0000000101465fcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x0000000101447578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x0000000101466850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x0000000101437640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x000000010148a194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x000000010148a310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x000000010149b85c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Goa...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/polio with selenium: Message: timeout: Timed out receiving message from renderer: 29.815
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000100837928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010082fc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x000000010031283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001002fccfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x00000001002fca5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x00000001002fa620 chromedriver + 222752
+6   chromedriver                        0x00000001002fb214 chromedriver + 225812
+7   chromedriver                        0x0000000100308bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x000000010031f508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x00000001002fb880 chromedriver + 227456
+10  chromedriver                        0x000000010031f2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x000000010039b2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x000000010035007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x00000001007f6884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x00000001007f9fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x00000001007db578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x00000001007fa850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x00000001007cb640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x000000010081e194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x000000010081e310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010082f85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.cdc.gov/typhoid/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/typhoid/prevention/index.html. Falling back to Selenium.
+Error fetching https://dhsgoa.gov.in with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000103413928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010340bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102eee83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102ee6a00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x0000000102ed911c cxxbridge1$string$len + 5152
+5   chromedriver                        0x0000000102edac24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x0000000102ed9588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x0000000102ed8d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x0000000102ed8a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x0000000102ed6620 chromedriver + 222752
+10  chromedriver                        0x0000000102ed70ec chromedriver + 225516
+11  chromedriver                        0x0000000102ef1d30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x0000000102f77ad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x0000000102f76fe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x0000000102f2c07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x00000001033d2884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x00000001033d5fcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x00000001033b7578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x00000001033d6850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x00000001033a7640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x00000001033fa194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x00000001033fa310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x000000010340b85c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Karnataka...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/heatstroke with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/heatstroke. Falling back to Selenium.
+Error fetching https://hfw.karnataka.gov.in with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x000000010303f928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000103037c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102b1a83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102b12a00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x0000000102b0511c cxxbridge1$string$len + 5152
+5   chromedriver                        0x0000000102b06c24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x0000000102b05588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x0000000102b04d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x0000000102b04a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x0000000102b02620 chromedriver + 222752
+10  chromedriver                        0x0000000102b030ec chromedriver + 225516
+11  chromedriver                        0x0000000102b1dd30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x0000000102ba3ad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x0000000102ba2fe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x0000000102b5807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x0000000102ffe884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x0000000103001fcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x0000000102fe3578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x0000000103002850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x0000000102fd3640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x0000000103026194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x0000000103026310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x000000010303785c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Kerala...
+Error fetching https://www.cdc.gov/typhoid/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/typhoid/treatment/index.html. Falling back to Selenium.
+  Scraping Tamil Nadu...
+Error fetching https://www.cdc.gov/tuberculosis/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/tuberculosis/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/heatstroke with selenium: Message: timeout: Timed out receiving message from renderer: 29.790
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000104fbb928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000104fb3c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000104a9683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104a80cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104a80a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104a7e620 chromedriver + 222752
+6   chromedriver                        0x0000000104a7f214 chromedriver + 225812
+7   chromedriver                        0x0000000104a8cbc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000104aa3508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104a7f880 chromedriver + 227456
+10  chromedriver                        0x0000000104aa32d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000104b1f2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000104ad407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000104f7a884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000104f7dfcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000104f5f578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000104f7e850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000104f4f640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000104fa2194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000104fa2310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000104fb385c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/dehydration with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/dehydration. Falling back to Selenium.
+  Scraping Andhra Pradesh...
+Error fetching https://www.cdc.gov/tuberculosis/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/tuberculosis/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/tuberculosis/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/tuberculosis/prevention/index.html. Falling back to Selenium.
+  Scraping Telangana...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/dehydration with selenium: Message: timeout: Timed out receiving message from renderer: 29.849
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000100c73928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000100c6bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x000000010074e83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000100738cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000100738a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000100736620 chromedriver + 222752
+6   chromedriver                        0x0000000100737214 chromedriver + 225812
+7   chromedriver                        0x0000000100744bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x000000010075b508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000100737880 chromedriver + 227456
+10  chromedriver                        0x000000010075b2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x00000001007d72f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x000000010078c07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000100c32884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000100c35fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000100c17578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000100c36850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000100c07640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000100c5a194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000100c5a310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000100c6b85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/sunburn with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/sunburn. Falling back to Selenium.
+Error fetching https://www.cdc.gov/tuberculosis/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/tuberculosis/treatment/index.html. Falling back to Selenium.
+  Scraping West Bengal...
+Error fetching https://www.cdc.gov/chikungunya/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/chikungunya/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/sunburn with selenium: Message: timeout: Timed out receiving message from renderer: 29.925
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000102f8b928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000102f83c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102a6683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102a50cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102a50a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000102a4e620 chromedriver + 222752
+6   chromedriver                        0x0000000102a4f214 chromedriver + 225812
+7   chromedriver                        0x0000000102a5cbc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000102a73508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000102a4f880 chromedriver + 227456
+10  chromedriver                        0x0000000102a732d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000102aef2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000102aa407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000102f4a884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000102f4dfcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000102f2f578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000102f4e850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000102f1f640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000102f72194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000102f72310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000102f8385c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/hay-fever with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/hay-fever. Falling back to Selenium.
+Error fetching https://www.cdc.gov/chikungunya/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/chikungunya/treatment/index.html. Falling back to Selenium.
+  Scraping Odisha...
+Error fetching https://www.cdc.gov/nipah/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/nipah/index.html. Falling back to Selenium.
+  Scraping Bihar...
+Error fetching https://health.bihar.gov.in with selenium: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001029cb928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001029c3c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001024a683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x000000010249ea00 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 42692
+4   chromedriver                        0x000000010249111c cxxbridge1$string$len + 5152
+5   chromedriver                        0x0000000102492c24 cxxbridge1$string$len + 12072
+6   chromedriver                        0x0000000102491588 cxxbridge1$string$len + 6284
+7   chromedriver                        0x0000000102490d30 cxxbridge1$string$len + 4148
+8   chromedriver                        0x0000000102490a5c cxxbridge1$string$len + 3424
+9   chromedriver                        0x000000010248e620 chromedriver + 222752
+10  chromedriver                        0x000000010248f0ec chromedriver + 225516
+11  chromedriver                        0x00000001024a9d30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 88564
+12  chromedriver                        0x000000010252fad4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 636824
+13  chromedriver                        0x000000010252efe8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634028
+14  chromedriver                        0x00000001024e407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+15  chromedriver                        0x000000010298a884 cxxbridge1$str$ptr + 2831984
+16  chromedriver                        0x000000010298dfcc cxxbridge1$str$ptr + 2846136
+17  chromedriver                        0x000000010296f578 cxxbridge1$str$ptr + 2720612
+18  chromedriver                        0x000000010298e850 cxxbridge1$str$ptr + 2848316
+19  chromedriver                        0x000000010295f640 cxxbridge1$str$ptr + 2655276
+20  chromedriver                        0x00000001029b2194 cxxbridge1$str$ptr + 2994048
+21  chromedriver                        0x00000001029b2310 cxxbridge1$str$ptr + 2994428
+22  chromedriver                        0x00000001029c385c cxxbridge1$str$ptr + 3065416
+23  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+24  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Jharkhand...
+Error fetching https://www.cdc.gov/nipah/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/nipah/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/hay-fever with selenium: Message: timeout: Timed out receiving message from renderer: 29.910
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000103283928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010327bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102d5e83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102d48cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102d48a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000102d46620 chromedriver + 222752
+6   chromedriver                        0x0000000102d47214 chromedriver + 225812
+7   chromedriver                        0x0000000102d54bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000102d6b508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000102d47880 chromedriver + 227456
+10  chromedriver                        0x0000000102d6b2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000102de72f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000102d9c07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000103242884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000103245fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000103227578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000103246850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000103217640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x000000010326a194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x000000010326a310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010327b85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/common-cold with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/common-cold. Falling back to Selenium.
+Error fetching https://www.cdc.gov/nipah/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/nipah/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/nipah/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/nipah/treatment/index.html. Falling back to Selenium.
+  Scraping Madhya Pradesh...
+Error fetching https://www.cdc.gov/mpox/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/monkeypox/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/common-cold with selenium: Message: timeout: Timed out receiving message from renderer: 29.829
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001054eb928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001054e3c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000104fc683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104fb0cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104fb0a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104fae620 chromedriver + 222752
+6   chromedriver                        0x0000000104faf214 chromedriver + 225812
+7   chromedriver                        0x0000000104fbcbc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000104fd3508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104faf880 chromedriver + 227456
+10  chromedriver                        0x0000000104fd32d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x000000010504f2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x000000010500407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x00000001054aa884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x00000001054adfcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x000000010548f578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x00000001054ae850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x000000010547f640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x00000001054d2194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x00000001054d2310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x00000001054e385c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Chhattisgarh...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/flu with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/flu. Falling back to Selenium.
+Error fetching https://cghealth.nic.in with selenium: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: Unable to receive message from renderer
+  (Session info: chrome=144.0.7559.133); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+0   chromedriver                        0x00000001029db928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001029d3c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001024b683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001024a0cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x00000001024a0a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x000000010249f8f8 chromedriver + 227576
+6   chromedriver                        0x00000001024c2e70 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 125748
+7   chromedriver                        0x000000010253f2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+8   chromedriver                        0x00000001024f407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+9   chromedriver                        0x000000010299a884 cxxbridge1$str$ptr + 2831984
+10  chromedriver                        0x000000010299dfcc cxxbridge1$str$ptr + 2846136
+11  chromedriver                        0x000000010297f578 cxxbridge1$str$ptr + 2720612
+12  chromedriver                        0x000000010299e850 cxxbridge1$str$ptr + 2848316
+13  chromedriver                        0x000000010296f640 cxxbridge1$str$ptr + 2655276
+14  chromedriver                        0x00000001029c2194 cxxbridge1$str$ptr + 2994048
+15  chromedriver                        0x00000001029c2310 cxxbridge1$str$ptr + 2994428
+16  chromedriver                        0x00000001029d385c cxxbridge1$str$ptr + 3065416
+17  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+18  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Assam...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/flu with selenium: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: Unable to receive message from renderer
+  (Session info: chrome=144.0.7559.133); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+0   chromedriver                        0x0000000100f0f928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000100f07c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001009ea83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001009d4cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x00000001009d4a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x00000001009d38f8 chromedriver + 227576
+6   chromedriver                        0x00000001009f6e70 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 125748
+7   chromedriver                        0x0000000100a732f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+8   chromedriver                        0x0000000100a2807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+9   chromedriver                        0x0000000100ece884 cxxbridge1$str$ptr + 2831984
+10  chromedriver                        0x0000000100ed1fcc cxxbridge1$str$ptr + 2846136
+11  chromedriver                        0x0000000100eb3578 cxxbridge1$str$ptr + 2720612
+12  chromedriver                        0x0000000100ed2850 cxxbridge1$str$ptr + 2848316
+13  chromedriver                        0x0000000100ea3640 cxxbridge1$str$ptr + 2655276
+14  chromedriver                        0x0000000100ef6194 cxxbridge1$str$ptr + 2994048
+15  chromedriver                        0x0000000100ef6310 cxxbridge1$str$ptr + 2994428
+16  chromedriver                        0x0000000100f0785c cxxbridge1$str$ptr + 3065416
+17  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+18  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.cdc.gov/mpox/treatment/index.html with selenium: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=144.0.7559.133); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+0   chromedriver                        0x0000000101217928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010120fc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000100cf283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000100cdb744 chromedriver + 227140
+4   chromedriver                        0x0000000100cff9f0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 128692
+5   chromedriver                        0x0000000100d64e24 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 543464
+6   chromedriver                        0x0000000100d7ab30 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 632820
+7   chromedriver                        0x0000000100d3007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+8   chromedriver                        0x00000001011d6884 cxxbridge1$str$ptr + 2831984
+9   chromedriver                        0x00000001011d9fcc cxxbridge1$str$ptr + 2846136
+10  chromedriver                        0x00000001011bb578 cxxbridge1$str$ptr + 2720612
+11  chromedriver                        0x00000001011da850 cxxbridge1$str$ptr + 2848316
+12  chromedriver                        0x00000001011ab640 cxxbridge1$str$ptr + 2655276
+13  chromedriver                        0x00000001011fe194 cxxbridge1$str$ptr + 2994048
+14  chromedriver                        0x00000001011fe310 cxxbridge1$str$ptr + 2994428
+15  chromedriver                        0x000000010120f85c cxxbridge1$str$ptr + 3065416
+16  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+17  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/dengue-fever with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/dengue-fever. Falling back to Selenium.
+Error fetching https://www.cdc.gov/mpox/treatment/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/monkeypox/treatment/. Falling back to Selenium.
+  Scraping Meghalaya...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/waterborne-diseases with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/waterborne-diseases. Falling back to Selenium.
+Error fetching https://www.cdc.gov/measles/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/measles/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/measles/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/measles/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/frostbite with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/frostbite. Falling back to Selenium.
+  Scraping Arunachal Pradesh...
+Error fetching https://www.cdc.gov/hepatitis/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hepatitis/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/hepatitis/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hepatitis/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/frostbite with selenium: Message: timeout: Timed out receiving message from renderer: 29.600
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001025cf928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001025c7c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001020aa83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102094cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102094a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000102092620 chromedriver + 222752
+6   chromedriver                        0x0000000102093214 chromedriver + 225812
+7   chromedriver                        0x00000001020a0bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x00000001020b7508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000102093880 chromedriver + 227456
+10  chromedriver                        0x00000001020b72d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x00000001021332f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x00000001020e807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x000000010258e884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000102591fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000102573578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000102592850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000102563640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x00000001025b6194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x00000001025b6310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x00000001025c785c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://health.arunachal.gov.in with selenium: Message: timeout: Timed out receiving message from renderer: -0.004
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001030db928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001030d3c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102bb683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102ba0cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102ba0a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000102b9e620 chromedriver + 222752
+6   chromedriver                        0x0000000102b9f214 chromedriver + 225812
+7   chromedriver                        0x0000000102bacbc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000102bc3508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000102b9f880 chromedriver + 227456
+10  chromedriver                        0x0000000102bc32d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000102c3ef20 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 633828
+12  chromedriver                        0x0000000102bf407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x000000010309a884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x000000010309dfcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x000000010307f578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x000000010309e850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x000000010306f640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x00000001030c2194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x00000001030c2310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x00000001030d385c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+  Scraping Manipur...
+Error fetching https://www.who.int/news-room/fact-sheets/detail/seasonal-affective-disorder with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/seasonal-affective-disorder. Falling back to Selenium.
+Error fetching https://www.cdc.gov/hepatitis/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hepatitis/treatment/index.html. Falling back to Selenium.
+  Scraping Mizoram...
+Error fetching https://www.cdc.gov/hiv/aids/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hiv/aids/index.html. Falling back to Selenium.
+  Scraping Nagaland...
+Error fetching https://www.cdc.gov/hiv/aids/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hiv/aids/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/seasonal-affective-disorder with selenium: Message: timeout: Timed out receiving message from renderer: 29.751
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x000000010141b928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000101413c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000100ef683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000100ee0cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000100ee0a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000100ede620 chromedriver + 222752
+6   chromedriver                        0x0000000100edf214 chromedriver + 225812
+7   chromedriver                        0x0000000100eecbc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000100f03508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000100edf880 chromedriver + 227456
+10  chromedriver                        0x0000000100f032d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000100f7f2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000100f3407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x00000001013da884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x00000001013ddfcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x00000001013bf578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x00000001013de850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x00000001013af640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000101402194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000101402310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010141385c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/respiratory-allergies with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/respiratory-allergies. Falling back to Selenium.
+Error fetching https://www.cdc.gov/hiv/aids/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hiv/aids/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/arthritis with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/arthritis. Falling back to Selenium.
+  Scraping Tripura...
+Error fetching https://www.cdc.gov/hiv/aids/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hiv/aids/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/alzheimer's with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/alzheimer's. Falling back to Selenium.
+Error fetching https://www.cdc.gov/pneumonia/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/pneumonia/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/pneumonia/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/pneumonia/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/parkinson's with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/parkinson's. Falling back to Selenium.
+Error fetching https://health.tripura.gov.in with selenium: Message: timeout: Timed out receiving message from renderer: 29.457
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000104fe7928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000104fdfc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000104ac283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104aaccfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104aaca5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104aaa620 chromedriver + 222752
+6   chromedriver                        0x0000000104aab214 chromedriver + 225812
+7   chromedriver                        0x0000000104ab8bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000104acf508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104aab880 chromedriver + 227456
+10  chromedriver                        0x0000000104acf2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000104b4b2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000104b0007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000104fa6884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000104fa9fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000104f8b578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000104faa850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000104f7b640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000104fce194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000104fce310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000104fdf85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+[2026-02-12 02:03:16.715677] <--- Finished StateDept Scraper.
+Error fetching https://www.cdc.gov/meningitis/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/meningitis/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/meningitis/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/meningitis/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/meningitis/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/meningitis/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/parkinson's with selenium: Message: timeout: Timed out receiving message from renderer: 29.925
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000102cdb928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000102cd3c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001027b683c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001027a0cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x00000001027a0a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x000000010279e620 chromedriver + 222752
+6   chromedriver                        0x000000010279f214 chromedriver + 225812
+7   chromedriver                        0x00000001027acbc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x00000001027c3508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x000000010279f880 chromedriver + 227456
+10  chromedriver                        0x00000001027c32d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x000000010283f2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x00000001027f407c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000102c9a884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000102c9dfcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000102c7f578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000102c9e850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000102c6f640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000102cc2194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000102cc2310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000102cd385c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/glaucoma with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/glaucoma. Falling back to Selenium.
+Error fetching https://www.cdc.gov/leptospirosis/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/leptospirosis/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/hearing-loss with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/hearing-loss. Falling back to Selenium.
+Error fetching https://www.cdc.gov/leptospirosis/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/leptospirosis/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/macular-degeneration with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/macular-degeneration. Falling back to Selenium.
+Error fetching https://www.cdc.gov/rabies/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/rabies/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/rabies/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/rabies/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/macular-degeneration with selenium: Message: timeout: Timed out receiving message from renderer: 29.893
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000103453928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010344bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102f2e83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102f18cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102f18a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000102f16620 chromedriver + 222752
+6   chromedriver                        0x0000000102f17214 chromedriver + 225812
+7   chromedriver                        0x0000000102f24bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000102f3b508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000102f17880 chromedriver + 227456
+10  chromedriver                        0x0000000102f3b2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000102fb72f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000102f6c07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000103412884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000103415fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x00000001033f7578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000103416850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x00000001033e7640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x000000010343a194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x000000010343a310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010344b85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/urinary-incontinence with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/urinary-incontinence. Falling back to Selenium.
+Error fetching https://www.cdc.gov/anthrax/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/anthrax/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/thyroid with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/thyroid. Falling back to Selenium.
+Error fetching https://www.cdc.gov/anthrax/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/anthrax/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/chronic-bronchitis with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/chronic-bronchitis. Falling back to Selenium.
+Error fetching https://www.cdc.gov/brucellosis/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/brucellosis/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/brucellosis/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/brucellosis/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/brucellosis/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/brucellosis/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/chronic-bronchitis with selenium: Message: timeout: Timed out receiving message from renderer: 29.896
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000100ec7928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000100ebfc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001009a283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x000000010098ccfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x000000010098ca5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x000000010098a620 chromedriver + 222752
+6   chromedriver                        0x000000010098b214 chromedriver + 225812
+7   chromedriver                        0x0000000100998bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x00000001009af508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x000000010098b880 chromedriver + 227456
+10  chromedriver                        0x00000001009af2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000100a2b2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x00000001009e007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000100e86884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000100e89fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000100e6b578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000100e8a850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000100e5b640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000100eae194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000100eae310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000100ebf85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/kidney-stones with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/kidney-stones. Falling back to Selenium.
+Error fetching https://www.cdc.gov/japanese-encephalitis/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/japanese-encephalitis/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/fatty-liver with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/fatty-liver. Falling back to Selenium.
+Error fetching https://www.cdc.gov/japanese-encephalitis/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/japanese-encephalitis/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/kala-azar/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/kala-azar/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/kala-azar/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/kala-azar/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/fatty-liver with selenium: Message: timeout: Timed out receiving message from renderer: 29.910
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001010c7928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001010bfc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000100ba283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000100b8ccfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000100b8ca5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000100b8a620 chromedriver + 222752
+6   chromedriver                        0x0000000100b8b214 chromedriver + 225812
+7   chromedriver                        0x0000000100b98bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000100baf508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000100b8b880 chromedriver + 227456
+10  chromedriver                        0x0000000100baf2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000100c2b2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000100be007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000101086884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000101089fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x000000010106b578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x000000010108a850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x000000010105b640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x00000001010ae194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x00000001010ae310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x00000001010bf85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/acid-reflux with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/acid-reflux. Falling back to Selenium.
+Error fetching https://www.cdc.gov/kala-azar/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/kala-azar/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/back-pain with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/back-pain. Falling back to Selenium.
+Error fetching https://www.cdc.gov/kala-azar/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/kala-azar/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/back-pain with selenium: Message: timeout: Timed out receiving message from renderer: 29.894
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x000000010307f928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000103077c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102b5a83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102b44cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102b44a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000102b42620 chromedriver + 222752
+6   chromedriver                        0x0000000102b43214 chromedriver + 225812
+7   chromedriver                        0x0000000102b50bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000102b67508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000102b43880 chromedriver + 227456
+10  chromedriver                        0x0000000102b672d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000102be32f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000102b9807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x000000010303e884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000103041fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000103023578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000103042850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000103013640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000103066194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000103066310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010307785c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.cdc.gov/yellow-fever/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/yellow-fever/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/insomnia with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/insomnia. Falling back to Selenium.
+Error fetching https://www.cdc.gov/yellow-fever/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/yellow-fever/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/insomnia with selenium: Message: timeout: Timed out receiving message from renderer: 29.899
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x000000010548f928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000105487c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000104f6a83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104f54cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104f54a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104f52620 chromedriver + 222752
+6   chromedriver                        0x0000000104f53214 chromedriver + 225812
+7   chromedriver                        0x0000000104f60bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000104f77508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104f53880 chromedriver + 227456
+10  chromedriver                        0x0000000104f772d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000104ff32f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000104fa807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x000000010544e884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000105451fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000105433578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000105452850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000105423640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000105476194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000105476310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010548785c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.cdc.gov/ebola/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/ebola/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/anemia with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/anemia. Falling back to Selenium.
+Error fetching https://www.cdc.gov/ebola/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/ebola/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/pcos with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/pcos. Falling back to Selenium.
+Error fetching https://www.cdc.gov/lassa-fever/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/lassa-fever/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/lassa-fever/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/lassa-fever/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/pcos with selenium: Message: timeout: Timed out receiving message from renderer: 29.917
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000100947928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010093fc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x000000010042283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x000000010040ccfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x000000010040ca5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x000000010040a620 chromedriver + 222752
+6   chromedriver                        0x000000010040b214 chromedriver + 225812
+7   chromedriver                        0x0000000100418bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x000000010042f508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x000000010040b880 chromedriver + 227456
+10  chromedriver                        0x000000010042f2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x00000001004ab2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x000000010046007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000100906884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000100909fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x00000001008eb578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x000000010090a850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x00000001008db640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x000000010092e194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x000000010092e310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010093f85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/uric-acid with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/uric-acid. Falling back to Selenium.
+Error fetching https://www.cdc.gov/lassa-fever/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/lassa-fever/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/cholesterol with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/cholesterol. Falling back to Selenium.
+Error fetching https://www.cdc.gov/smallpox/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/smallpox/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/cholesterol with selenium: Message: timeout: Timed out receiving message from renderer: 28.780
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x000000010339f928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000103397c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000102e7a83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000102e64cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000102e64a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000102e62620 chromedriver + 222752
+6   chromedriver                        0x0000000102e63214 chromedriver + 225812
+7   chromedriver                        0x0000000102e70bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000102e87508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000102e63880 chromedriver + 227456
+10  chromedriver                        0x0000000102e872d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000102f032f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000102eb807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x000000010335e884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000103361fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000103343578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000103362850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000103333640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000103386194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000103386310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010339785c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/snake-bite with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/snake-bite. Falling back to Selenium.
+Error fetching https://www.cdc.gov/polio/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/polio/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/polio/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/polio/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/snake-bite with selenium: Message: timeout: Timed out receiving message from renderer: 29.923
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000104d83928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000104d7bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x000000010485e83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104848cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104848a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104846620 chromedriver + 222752
+6   chromedriver                        0x0000000104847214 chromedriver + 225812
+7   chromedriver                        0x0000000104854bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x000000010486b508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104847880 chromedriver + 227456
+10  chromedriver                        0x000000010486b2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x00000001048e72f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x000000010489c07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000104d42884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000104d45fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000104d27578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000104d46850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000104d17640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000104d6a194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000104d6a310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000104d7b85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.cdc.gov/polio/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/polio/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/poisoning with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/poisoning. Falling back to Selenium.
+Error fetching https://www.cdc.gov/heatstroke/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/heatstroke/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/heatstroke/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/heatstroke/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/poisoning with selenium: Message: timeout: Timed out receiving message from renderer: 28.878
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000101107928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001010ffc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000100be283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000100bcccfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000100bcca5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000100bca620 chromedriver + 222752
+6   chromedriver                        0x0000000100bcb214 chromedriver + 225812
+7   chromedriver                        0x0000000100bd8bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000100bef508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000100bcb880 chromedriver + 227456
+10  chromedriver                        0x0000000100bef2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000100c6b2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000100c2007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x00000001010c6884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x00000001010c9fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x00000001010ab578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x00000001010ca850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x000000010109b640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x00000001010ee194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x00000001010ee310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x00000001010ff85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.cdc.gov/heatstroke/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/heatstroke/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/fracture with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/fracture. Falling back to Selenium.
+Error fetching https://www.cdc.gov/heatstroke/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/heatstroke/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/dehydration/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/dehydration/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/fracture with selenium: Message: timeout: Timed out receiving message from renderer: 29.668
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001050cf928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x00000001050c7c04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x0000000104baa83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104b94cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104b94a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104b92620 chromedriver + 222752
+6   chromedriver                        0x0000000104b93214 chromedriver + 225812
+7   chromedriver                        0x0000000104ba0bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x0000000104bb7508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104b93880 chromedriver + 227456
+10  chromedriver                        0x0000000104bb72d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x0000000104c332f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x0000000104be807c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x000000010508e884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000105091fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000105073578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000105092850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000105063640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x00000001050b6194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x00000001050b6310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x00000001050c785c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/electric-shock with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/electric-shock. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/electric-shock with selenium: Message: timeout: Timed out receiving message from renderer: 29.585
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x00000001048a3928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x000000010489bc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x000000010437e83c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x0000000104368cfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x0000000104368a5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x0000000104366620 chromedriver + 222752
+6   chromedriver                        0x0000000104367214 chromedriver + 225812
+7   chromedriver                        0x0000000104374bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x000000010438b508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x0000000104367880 chromedriver + 227456
+10  chromedriver                        0x000000010438b2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x00000001044072f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x00000001043bc07c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000104862884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000104865fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000104847578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000104866850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000104837640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x000000010488a194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x000000010488a310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x000000010489b85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/choking with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/choking. Falling back to Selenium.
+Error fetching https://www.cdc.gov/dehydration/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/dehydration/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.cdc.gov/dehydration/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/dehydration/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/bleeding with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/bleeding. Falling back to Selenium.
+Error fetching https://www.cdc.gov/dehydration/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/dehydration/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/heart-attack-symptoms with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/heart-attack-symptoms. Falling back to Selenium.
+Error fetching https://www.cdc.gov/sunburn/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/sunburn/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/sunburn/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/sunburn/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/heart-attack-symptoms with selenium: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+Error fetching https://www.who.int/news-room/fact-sheets/detail/heat-exhaustion with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/heat-exhaustion. Falling back to Selenium.
+Error fetching https://www.cdc.gov/sunburn/prevention/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/sunburn/prevention/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/sunburn/treatment/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/sunburn/treatment/index.html. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/heat-exhaustion with selenium: Message: timeout: Timed out receiving message from renderer: 29.919
+  (Session info: chrome=144.0.7559.133)
+Stacktrace:
+0   chromedriver                        0x0000000102ce7928 cxxbridge1$str$ptr + 3098388
+1   chromedriver                        0x0000000102cdfc04 cxxbridge1$str$ptr + 3066352
+2   chromedriver                        0x00000001027c283c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 75008
+3   chromedriver                        0x00000001027accfc cxxbridge1$string$len + 4096
+4   chromedriver                        0x00000001027aca5c cxxbridge1$string$len + 3424
+5   chromedriver                        0x00000001027aa620 chromedriver + 222752
+6   chromedriver                        0x00000001027ab214 chromedriver + 225812
+7   chromedriver                        0x00000001027b8bc0 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 34948
+8   chromedriver                        0x00000001027cf508 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 127436
+9   chromedriver                        0x00000001027ab880 chromedriver + 227456
+10  chromedriver                        0x00000001027cf2d4 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 126872
+11  chromedriver                        0x000000010284b2f8 _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634812
+12  chromedriver                        0x000000010280007c _RNvCs5DBLTqoOdVp_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 326976
+13  chromedriver                        0x0000000102ca6884 cxxbridge1$str$ptr + 2831984
+14  chromedriver                        0x0000000102ca9fcc cxxbridge1$str$ptr + 2846136
+15  chromedriver                        0x0000000102c8b578 cxxbridge1$str$ptr + 2720612
+16  chromedriver                        0x0000000102caa850 cxxbridge1$str$ptr + 2848316
+17  chromedriver                        0x0000000102c7b640 cxxbridge1$str$ptr + 2655276
+18  chromedriver                        0x0000000102cce194 cxxbridge1$str$ptr + 2994048
+19  chromedriver                        0x0000000102cce310 cxxbridge1$str$ptr + 2994428
+20  chromedriver                        0x0000000102cdf85c cxxbridge1$str$ptr + 3065416
+21  libsystem_pthread.dylib             0x0000000186ac5c08 _pthread_start + 136
+22  libsystem_pthread.dylib             0x0000000186ac0ba8 thread_start + 8
+
+Error fetching https://www.who.int/news-room/fact-sheets/detail/first-aid with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/first-aid. Falling back to Selenium.
+Error fetching https://www.cdc.gov/hay-fever/index.html with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hay-fever/index.html. Falling back to Selenium.
+Error fetching https://www.cdc.gov/hay-fever/signs-symptoms/ with requests: 404 Client Error: Not Found for url: https://www.cdc.gov/hay-fever/signs-symptoms/. Falling back to Selenium.
+Error fetching https://www.who.int/news-room/fact-sheets/detail/cpr with requests: 404 Client Error: Not Found for url: https://www.who.int/news-room/fact-sheets/detail/cpr. Falling back to Selenium.

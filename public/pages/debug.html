@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #000; color: #fff; }
+        .error { color: #ff4444; }
+        .success { color: #44ff44; }
+        .info { color: #4444ff; }
+        pre { background: #222; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Chatbot Debug Page</h1>
+    <div id="output"></div>
+    
+    <script>
+        const output = document.getElementById('output');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = message;
+            output.appendChild(div);
+            console.log(message);
+        }
+        
+        // Test 1: Check if DOM is ready
+        log('✓ DOM loaded', 'success');
+        
+        // Test 2: Check API base
+        const API_BASE = 'http://localhost:8000/api/v1';
+        log(`API_BASE: ${API_BASE}`, 'info');
+        
+        // Test 3: Check if elements exist
+        const testElements = [
+            'sidebar',
+            'mainContent',
+            'chatMessages',
+            'messageInput',
+            'historyList',
+            'greetingText',
+            'chatTitle'
+        ];
+        
+        log('\n--- Checking Elements ---', 'info');
+        testElements.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                log(`✓ Found: ${id}`, 'success');
+            } else {
+                log(`✗ Missing: ${id}`, 'error');
+            }
+        });
+        
+        // Test 4: Try to fetch sessions
+        log('\n--- Testing API ---', 'info');
+        fetch(`${API_BASE}/health`)
+            .then(res => res.json())
+            .then(data => {
+                log(`✓ Health check: ${data.service}`, 'success');
+                return fetch(`${API_BASE}/chat/sessions?limit=5`);
+            })
+            .then(res => res.json())
+            .then(data => {
+                log(`✓ Sessions loaded: ${data.sessions.length} sessions`, 'success');
+                const pre = document.createElement('pre');
+                pre.textContent = JSON.stringify(data, null, 2);
+                output.appendChild(pre);
+            })
+            .catch(error => {
+                log(`✗ API Error: ${error.message}`, 'error');
+            });
+        
+        // Test 5: Load actual scripts
+        log('\n--- Loading Scripts ---', 'info');
+        
+        const script1 = document.createElement('script');
+        script1.src = '../assets/js/common.js';
+        script1.onload = () => {
+            log('✓ common.js loaded', 'success');
+            
+            const script2 = document.createElement('script');
+            script2.src = '../assets/js/chatbot.js';
+            script2.onload = () => {
+                log('✓ chatbot.js loaded', 'success');
+                
+                // Check if functions exist
+                setTimeout(() => {
+                    log('\n--- Checking Functions ---', 'info');
+                    const functions = ['loadSessions', 'sendMessage', 'toggleSidebar', 'newChat'];
+                    functions.forEach(fn => {
+                        if (typeof window[fn] === 'function') {
+                            log(`✓ Function exists: ${fn}`, 'success');
+                        } else {
+                            log(`✗ Function missing: ${fn}`, 'error');
+                        }
+                    });
+                }, 100);
+            };
+            script2.onerror = (e) => {
+                log(`✗ Failed to load chatbot.js: ${e}`, 'error');
+            };
+            document.body.appendChild(script2);
+        };
+        script1.onerror = (e) => {
+            log(`✗ Failed to load common.js: ${e}`, 'error');
+        };
+        document.body.appendChild(script1);
+    </script>
+</body>
+</html>

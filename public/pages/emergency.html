@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emergency Assistance - AI Health Chatbot</title>
+
+  <!-- External CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/emergency.css">
+</head>
+
+<body class="bg-black text-white min-h-screen bg-grid">
+  <!-- Animated Gradient Background -->
+  <div class="chat-background"></div>
+
+  <!-- Liquid Glass Overlay -->
+  <div class="liquid-glass"></div>
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 px-4 sm:px-6 py-4 chat-content">
+    <div class="top-bar-container">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="./index.html" class="top-bar-btn">
+            <i class="fa-solid fa-arrow-left text-sm"></i>
+            <span class="hidden sm:inline ml-2 text-sm">Back</span>
+          </a>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-truck-medical text-blue-400 text-sm"></i>
+            <h1 class="text-base sm:text-lg font-semibold">Emergency</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="alerts.html" class="top-bar-btn">
+            <span class="text-sm">Alerts</span>
+          </a>
+          <a href="settings.html" class="top-bar-btn">
+            <i class="fa-solid fa-gear text-sm mr-1"></i>
+            <span class="text-sm">Settings</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="px-4 sm:px-6 chat-content">
+    <div class="max-w-7xl mx-auto py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Controls -->
+      <section class="glass rounded-2xl p-5 sm:p-6 h-max">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold">Immediate help</h2>
+          <p class="text-gray-400 text-sm">Use these tools to reach help quickly in an emergency.</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Severity selector -->
+          <div id="sevSelect" class="relative">
+            <label class="block text-sm text-gray-300 mb-1">Emergency severity</label>
+            <input type="hidden" id="severity" value="moderate" />
+            <button type="button"
+              class="w-full rounded-lg bg-white/5 border border-gray-700 hover:border-blue-500 text-white px-3 py-2 flex items-center justify-between backdrop-blur">
+              <span id="sevLabel" class="truncate text-gray-300">Moderate</span>
+              <i class="fa-solid fa-chevron-down text-gray-400 ml-2 transition-transform transform"></i>
+            </button>
+            <div
+              class="hidden absolute z-20 mt-2 w-full bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden dropdown-panel">
+              <button type="button" data-value="mild" data-label="Mild"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">Mild</button>
+              <button type="button" data-value="moderate" data-label="Moderate"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">Moderate</button>
+              <button type="button" data-value="severe" data-label="Severe"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">Severe</button>
+            </div>
+          </div>
+
+          <!-- Emergency condition -->
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">Describe emergency condition</label>
+            <textarea id="emergencyCondition" rows="3"
+              placeholder="E.g., chest pain, difficulty breathing, severe bleeding..."
+              class="w-full rounded-lg bg-white/5 border border-gray-700 focus:border-blue-500 text-white px-3 py-2 resize-none"></textarea>
+          </div>
+
+          <!-- Search radius (Fixed at 5km for simplicity as requested, or just hidden) -->
+          <!-- Slider removed as per request -->
+
+          <!-- Find hospitals -->
+          <div class="grid grid-cols-1 gap-3">
+            <div class="flex items-center gap-2">
+              <button id="btnLocate"
+                class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-gray-700">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                My location
+              </button>
+              <button id="btnSearch"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 border border-blue-500">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Find hospitals
+              </button>
+            </div>
+            <div class="text-xs text-gray-400" id="status"></div>
+          </div>
+
+          <!-- Call actions -->
+          <div class="grid grid-cols-1 gap-2">
+            <a id="callNearest" href="#"
+              class="disabled:opacity-50 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-gray-700">
+              <i class="fa-solid fa-phone-volume"></i>
+              Call nearest hospital
+            </a>
+            <a id="callAmbulance" href="tel:108"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 border border-red-500">
+              <i class="fa-solid fa-truck-medical"></i>
+              Call ambulance (108)
+            </a>
+            <div class="text-[11px] text-gray-500">If 108 is unavailable, try 112.</div>
+          </div>
+        </div>
+
+        <!-- First Aid Instructions -->
+        <div id="firstAidSection" class="glass rounded-2xl p-5 border border-gray-800 hidden mt-6">
+          <div class="flex items-center gap-2 mb-4">
+            <i class="fa-solid fa-kit-medical text-blue-400 text-xl"></i>
+            <h3 class="text-xl font-semibold">First Aid Instructions</h3>
+          </div>
+          <div id="firstAidContent" class="space-y-3">
+            <p class="text-gray-400 text-sm">Enter an emergency condition above to see first aid steps.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Map & Hospital List -->
+      <section class="lg:col-span-2 space-y-4">
+        <div id="map" class="glass"></div>
+
+        <!-- Summary -->
+        <div class="glass rounded-2xl p-4 border border-gray-800">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Nearest hospital</h3>
+            <div id="nearInfo" class="text-xs text-gray-400">—</div>
+          </div>
+          <div id="list" class="divide-y divide-gray-800"></div>
+        </div>
+      </section>
+    </div>
+
+    <p class="text-[11px] text-gray-500 mt-2 text-center">Demo UI. Calls open your dialer. Connect a backend for live
+      dispatch.</p>
+  </main>
+
+  <!-- External JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Custom JavaScript -->
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/emergency.js"></script>
+</body>
+
+</html>

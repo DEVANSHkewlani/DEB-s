@@ -1,0 +1,81 @@
+/* Education Page Specific Styles */
+
+.thumb {
+  background: #111827;
+  border: 1px solid #374151;
+}
+
+.video-card {
+  transition: transform 0.2s;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+}
+
+.video-card img {
+  transition: transform 0.3s;
+}
+
+.video-card:hover img {
+  transform: scale(1.05);
+}
+
+.player-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.player-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.side-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 420px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 50;
+}
+
+.side-panel.open {
+  transform: translateX(0);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Filter Buttons */
+.filter-btn {
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-btn.active {
+  background: #2563eb !important;
+  border-color: #1d4ed8 !important;
+}
+
+.filter-btn:not(.active):hover {
+  background: rgba(255, 255, 255, 0.2);
+}

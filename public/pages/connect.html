@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect - Healthcare Facilities</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/connect.css">
+</head>
+
+<body class="bg-black text-white min-h-screen relative bg-grid">
+  <!-- Animated Gradient Background -->
+  <div class="chat-background"></div>
+
+  <!-- Liquid Glass Overlay -->
+  <div class="liquid-glass"></div>
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 px-4 sm:px-6 py-4 chat-content">
+    <div class="top-bar-container">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="./index.html" class="top-bar-btn">
+            <i class="fa-solid fa-arrow-left text-sm"></i>
+            <span class="hidden sm:inline ml-2 text-sm">Back</span>
+          </a>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-user-doctor text-blue-400 text-sm"></i>
+            <h1 class="text-base sm:text-lg font-semibold">Connect</h1>
+          </div>
+        </div>
+        <a href="./settings.html" class="top-bar-btn">
+          <i class="fa-solid fa-gear text-sm mr-1"></i>
+          <span class="text-sm">Settings</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="px-4 sm:px-6 chat-content">
+    <div class="max-w-6xl mx-auto py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Controls -->
+      <section class="glass rounded-2xl p-5 sm:p-6 h-max">
+        <div class="mb-5">
+          <h2 class="text-xl font-semibold">Find healthcare facilities</h2>
+          <p class="text-gray-400 mt-1 text-sm">Search for hospitals, clinics, doctors, and pharmacies near you.</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Search specialty/type -->
+          <div>
+            <label class="block text-sm text-gray-300 mb-1" for="q">Search specialty or name</label>
+            <div class="relative">
+              <i
+                class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+              <input id="q" type="text" placeholder="e.g., dental, pediatric, dermatology"
+                class="w-full rounded-lg bg-white/5 border border-gray-700 focus:border-blue-500 focus:ring-0 text-white pl-9 pr-3 py-2" />
+            </div>
+          </div>
+
+          <!-- Type selector -->
+          <div id="typeSelect" class="relative">
+            <label class="block text-sm text-gray-300 mb-1">Facility type (select multiple)</label>
+            <button type="button" id="typeDropdownBtn"
+              class="w-full rounded-lg bg-white/5 border border-gray-700 hover:border-blue-500 focus:outline-none text-white px-3 py-2 flex items-center justify-between backdrop-blur">
+              <span id="typeLabel" class="truncate text-gray-300">All</span>
+              <i class="fa-solid fa-chevron-down text-gray-400 ml-2 transition-transform transform"></i>
+            </button>
+            <div id="typeDropdown"
+              class="hidden absolute z-20 mt-2 w-full bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden">
+              <label
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 flex items-center gap-3 text-sm cursor-pointer">
+                <input type="checkbox" value="doctors" class="type-checkbox" checked />
+                <i class="fa-solid fa-user-doctor text-blue-400"></i>
+                <span>Doctors</span>
+              </label>
+              <label
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 flex items-center gap-3 text-sm cursor-pointer">
+                <input type="checkbox" value="hospital" class="type-checkbox" checked />
+                <i class="fa-solid fa-hospital text-blue-400"></i>
+                <span>Hospitals</span>
+              </label>
+              <label
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 flex items-center gap-3 text-sm cursor-pointer">
+                <input type="checkbox" value="pharmacy" class="type-checkbox" checked />
+                <i class="fa-solid fa-prescription-bottle-medical text-blue-400"></i>
+                <span>Pharmacies</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Radius -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-sm text-gray-300" for="radius">Radius</label>
+              <span id="radiusLabel" class="text-sm text-gray-400">5 km</span>
+            </div>
+            <input id="radius" type="range" min="1" max="25" step="1" value="5" class="w-full" />
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="btnLocate"
+              class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-gray-700">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              Use my location
+            </button>
+            <button id="btnSearch"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 border border-blue-500">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Search
+            </button>
+          </div>
+
+          <div id="status" class="text-xs text-gray-400"></div>
+        </div>
+      </section>
+
+      <!-- Map & List -->
+      <section class="lg:col-span-2 space-y-4">
+        <div id="map" class="glass"></div>
+
+        <div class="glass rounded-2xl p-4 border border-gray-800">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Results</h3>
+            <div class="text-xs text-gray-400"><span id="count">0</span> found</div>
+          </div>
+          <div id="list" class="divide-y divide-gray-800"></div>
+        </div>
+      </section>
+    </div>
+
+    <p class="text-[11px] text-gray-500 mt-2 text-center">Data from OpenStreetMap via Overpass API. Locations may be
+      approximate.</p>
+  </main>
+
+  <script src="../assets/js/common.js?v=2"></script>
+  <script src="../assets/js/connect.js?v=2"></script>
+</body>
+
+</html>

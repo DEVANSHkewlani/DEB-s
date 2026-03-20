@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicine Lens — DEB's Health Navigator</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.2/dist/coco-ssd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.0/dist/tesseract.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:#000;color:#fff;
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000 100%);
+}
+
+/* ── Animated background ── */
+.chat-background{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(239, 68, 68, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 60%);
+  filter: blur(40px);
+}
+
+.liquid-glass{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  background:rgba(255, 255, 255, 0.02);
+  backdrop-filter:blur(100px);
+  -webkit-backdrop-filter:blur(100px);
+  pointer-events:none;
+}
+
+/* ── Glass card ── */
+.glass{
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.82);
+}
+
+/* ── Top bar ── */
+.top-bar-container{
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 12px 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+/* ── Shutter Button ── */
+#shutterBtn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+#shutterBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+}
+#shutterBtn:active {
+  transform: scale(0.9);
+}
+
+/* ── Scan line ── */
+.scan-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+  box-shadow: 0 0 15px #3b82f6;
+  z-index: 5;
+  animation: scanAnim 2s ease-in-out infinite;
+}
+
+@keyframes scanAnim {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ── Freeze overlay controls ── */
+#freezeControls{position:absolute;bottom:0;left:0;right:0;padding:20px 0 28px;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 100%);display:none;flex-direction:column;align-items:center;gap:10px;z-index:10}
+.scan-btn{position:relative;background:linear-gradient(135deg,rgba(80,80,80,0.25),rgba(60,60,60,0.3));border:1px solid transparent;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px;padding:12px 32px;border-radius:16px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.2s}
+.scan-btn::before{content:'';position:absolute;inset:0;border-radius:16px;padding:1px;background:linear-gradient(135deg,rgba(59,130,246,0.4),rgba(139,92,246,0.3),rgba(239,68,68,0.4));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.scan-btn:hover{background:linear-gradient(135deg,rgba(100,100,100,0.3),rgba(80,80,80,0.35));transform:translateY(-1px)}
+.retake-btn{background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-family:'Inter',sans-serif;font-size:13px;padding:7px 20px;border-radius:10px;cursor:pointer;transition:all 0.2s}
+.retake-btn:hover{background:rgba(255,255,255,0.06);color:#fff}
+
+/* ── OCR readout flash ── */
+#ocrFlash{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);background:rgba(10,10,10,0.88);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 14px;font-family:monospace;font-size:11px;color:rgba(255,255,255,0.5);max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:15;opacity:0;transition:opacity 0.3s;pointer-events:none}
+
+/* ── Tabs ── */
+.tab-bar{display:flex;border-bottom:1px solid rgba(255,255,255,0.06);overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:10px 12px;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.4);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;flex-shrink:0}
+.tab-btn.active{color:#fff;border-bottom-color:rgba(59,130,246,0.8)}
+.tab-pane{display:none;padding:14px 0}
+.tab-pane.active{display:block}
+
+/* ── Info rows ── */
+.info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);gap:12px}
+.info-label{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;flex-shrink:0;padding-top:1px}
+.info-value{font-size:12px;color:rgba(255,255,255,0.8);text-align:right;line-height:1.5}
+
+/* ── Section labels ── */
+.section-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.35);margin-bottom:8px;margin-top:14px}
+.section-label:first-child{margin-top:0}
+
+/* ── Tag chips ── */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.7)}
+.chip-orange{background:rgba(249,115,22,0.1);border-color:rgba(249,115,22,0.2);color:rgba(249,115,22,0.9);cursor:pointer}
+.chip-orange:hover{background:rgba(249,115,22,0.18)}
+.chip-amber{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.2);color:rgba(245,158,11,0.85)}
+
+/* ── Badges ── */
+.badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-flex;align-items:center}
+.badge-otc{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.2)}
+.badge-rx{background:rgba(59,130,246,0.15);color:#93c5fd;border:1px solid rgba(59,130,246,0.2)}
+.badge-h{background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.2)}
+.badge-x{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.2)}
+.badge-preg{background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.2)}
+.badge-ai{background:rgba(245,158,11,0.12);color:#fbbf24;border:1px solid rgba(245,158,11,0.18)}
+.badge-db{background:rgba(34,197,94,0.12);color:#86efac;border:1px solid rgba(34,197,94,0.15)}
+.badge-fda{background:rgba(59,130,246,0.12);color:#93c5fd;border:1px solid rgba(59,130,246,0.15)}
+
+/* ── Warning boxes ── */
+.warn-box{border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.6;margin:8px 0}
+.warn-amber{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:rgba(245,158,11,0.9)}
+.warn-red{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:rgba(239,68,68,0.9)}
+.warn-orange{background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);color:rgba(249,115,22,0.9)}
+.warn-box ul{padding-left:14px;margin-top:4px}
+.warn-box li{margin-bottom:3px}
+
+/* ── Interaction cards ── */
+.icard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.icard-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.icard-drug{font-size:13px;font-weight:600;color:#fff}
+.sev-high{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.2)}
+.sev-moderate{background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.2)}
+.sev-low{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.2)}
+.icard-effect{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:4px;line-height:1.5}
+.icard-action{font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:5px}
+
+/* ── Source links ── */
+.source-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:8px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);color:rgba(139,184,255,0.8);text-decoration:none;margin:3px;transition:all 0.2s}
+.source-link:hover{background:rgba(59,130,246,0.15);color:#fff}
+
+/* ── Skeleton ── */
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.09) 50%,rgba(255,255,255,0.04) 75%);background-size:200% 100%;animation:shimmer 1.4s ease-in-out infinite;border-radius:4px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── Empty state ── */
+#emptyState{display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px 16px}
+.hint-row{display:flex;align-items:flex-start;gap:10px;text-align:left;margin-bottom:12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)}
+.hint-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+
+/* ── Medicine header ── */
+#medHeader{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:rgba(255,255,255,0.02)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.12)}
+
+/* ── Mobile ── */
+@media(max-width:767px){
+  #body{flex-direction:column}
+  #leftPanel{width:100%;height:55vh;border-right:none;border-top:1px solid rgba(255,255,255,0.06);order:2}
+  #cameraZone{height:45vh;flex:none;order:1}
+  body,html{overflow:auto}
+  #appShell{height:auto;min-height:100vh}
+  #statusPill{font-size:11px;padding:4px 10px;top:10px}
+  #modeToggle{top:10px;right:10px}
+  .mode-btn{padding:3px 10px;font-size:11px}
+}
+
+/* ── Classic split layout (desktop): details left, small camera right ── */
+@media(min-width:768px){
+  .chat-background,.liquid-glass{display:none !important}
+  body{
+    background:#000 !important;
+  }
+  #appShell{
+    max-width:1200px;
+    margin:0 auto;
+    height:100vh;
+    padding:0 12px 12px;
+  }
+  #body{
+    display:flex;
+    gap:14px;
+    height:calc(100vh - 120px);
+  }
+  #leftPanel{
+    flex:1 1 auto;
+    min-width:0;
+    height:100%;
+  }
+  #cameraZone{
+    flex:0 0 420px;
+    width:420px;
+    height:620px;
+    align-self:flex-start;
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:14px;
+    overflow:hidden;
+    background:#0a0a0a;
+  }
+  #videoEl{
+    object-fit:cover;
+    filter:none !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="chat-background"></div>
+<div class="liquid-glass"></div>
+
+<div id="appShell" class="chat-content">
+  <!-- TOP BAR -->
+  <header id="topBar">
+    <div class="top-bar-container">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:12px">
+          <a href="index.html" class="top-bar-btn"><i class="fas fa-arrow-left" style="font-size:12px;margin-right:6px"></i>Back</a>
+          <div style="display:flex;align-items:center;gap:8px">
+            <i class="fas fa-camera" style="color:rgba(139,184,255,0.8);font-size:14px"></i>
+            <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">Medicine <span class="text-gradient">Lens</span></h1>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button onclick="toggleHistory()" class="top-bar-btn"><i class="fas fa-clock-rotate-left" style="font-size:12px;margin-right:6px"></i>History</button>
+          <a href="settings.html" class="top-bar-btn"><i class="fas fa-gear" style="font-size:12px;margin-right:6px"></i>Settings</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY: left panel + camera zone -->
+  <div id="body">
+
+    <!-- LEFT PANEL -->
+    <div id="leftPanel">
+      <!-- Medicine header (hidden until scan) -->
+      <div id="medHeader" style="display:none"></div>
+
+      <!-- Tab bar (hidden until scan) -->
+      <div id="tabBar" class="tab-bar" style="display:none">
+        <button class="tab-btn active" onclick="switchTab(0)">Overview</button>
+        <button class="tab-btn" onclick="switchTab(1)">Dosage</button>
+        <button class="tab-btn" onclick="switchTab(2)">Side effects</button>
+        <button class="tab-btn" onclick="switchTab(3)">Interactions</button>
+        <button class="tab-btn" onclick="switchTab(4)">Storage</button>
+        <button class="tab-btn" onclick="switchTab(5)">More info</button>
+        <button class="tab-btn" onclick="switchTab(6)"><i class="fas fa-sparkles" style="color:#fbbf24;margin-right:4px"></i>Ask AI</button>
+      </div>
+
+      <!-- Scrollable content -->
+      <div id="panelScroll">
+        <!-- Empty state -->
+        <div id="emptyState">
+          <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(239,68,68,0.2));border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+            <i class="fas fa-camera" style="font-size:22px;color:rgba(139,184,255,0.8)"></i>
+          </div>
+          <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:8px">Medicine Lens</h2>
+          <p style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:20px">Point your camera at any medicine packaging. The system will detect and highlight it automatically, then show complete information here.</p>
+          <div style="width:100%;margin-bottom:16px">
+            <div class="hint-row">
+              <div class="hint-icon" style="background:rgba(59,130,246,0.12);color:rgba(139,184,255,0.8)"><i class="fas fa-magnifying-glass"></i></div>
+              <div><div style="font-size:12px;font-weight:600;margin-bottom:2px">Live detection</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">Medicine highlighted automatically</div></div>
+            </div>
+            <div class="hint-row">
+              <div class="hint-icon" style="background:rgba(139,92,246,0.12);color:rgba(196,181,253,0.8)"><i class="fas fa-hand-pointer"></i></div>
+              <div><div style="font-size:12px;font-weight:600;margin-bottom:2px">Adjust boundary</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">Drag handles to refine the scan area</div></div>
+            </div>
+            <div class="hint-row">
+              <div class="hint-icon" style="background:rgba(34,197,94,0.12);color:rgba(134,239,172,0.8)"><i class="fas fa-pills"></i></div>
+              <div><div style="font-size:12px;font-weight:600;margin-bottom:2px">Full information</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">Dosage, interactions, side effects</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton (hidden until scanning) -->
+        <div id="skeletonState" style="display:none;padding:4px 0">
+          <div class="skeleton" style="height:28px;width:70%;margin-bottom:8px"></div>
+          <div class="skeleton" style="height:16px;width:50%;margin-bottom:16px"></div>
+          <div class="skeleton" style="height:12px;width:100%;margin-bottom:6px"></div>
+          <div class="skeleton" style="height:12px;width:90%;margin-bottom:6px"></div>
+          <div class="skeleton" style="height:12px;width:95%;margin-bottom:6px"></div>
+          <div class="skeleton" style="height:12px;width:80%;margin-bottom:6px"></div>
+          <div class="skeleton" style="height:12px;width:88%;margin-bottom:6px"></div>
+          <div class="skeleton" style="height:12px;width:75%;margin-bottom:6px"></div>
+          <div class="skeleton" style="height:12px;width:92%"></div>
+        </div>
+
+        <!-- Tab panes (hidden until scan) -->
+        <div id="tabPanes" style="display:none">
+          <div id="pane0" class="tab-pane active"></div>
+          <div id="pane1" class="tab-pane"></div>
+          <div id="pane2" class="tab-pane"></div>
+          <div id="pane3" class="tab-pane"></div>
+          <div id="pane4" class="tab-pane"></div>
+          <div id="pane5" class="tab-pane"></div>
+          <div id="pane6" class="tab-pane" style="height:100%">
+            <div id="chatMessages" style="display:flex;flex-direction:column">
+              <!-- Empty chat state -->
+              <div id="chatEmptyState" style="text-align:center;padding:32px 16px;color:rgba(255,255,255,0.4)">
+                <i class="fas fa-sparkles" style="font-size:24px;color:rgba(251,191,36,0.5);margin-bottom:12px"></i>
+                <p style="font-size:12px;line-height:1.6">Scan a medicine and ask me anything — dosage, interactions, safety for your condition, alternatives…</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer search & chat -->
+      <div id="panelFooter">
+        <!-- Search Mode -->
+        <div id="footerSearch" style="display:flex;gap:8px">
+          <input id="searchInput" type="text" placeholder="Search medicine by name…"
+            style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 12px;color:#fff;font-size:13px;font-family:'Inter',sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')doSearch()">
+          <button onclick="doSearch()" style="background:linear-gradient(135deg,rgba(59,130,246,0.3),rgba(139,92,246,0.2));border:1px solid rgba(59,130,246,0.3);color:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;transition:all 0.2s" onmouseover="this.style.background='linear-gradient(135deg,rgba(59,130,246,0.45),rgba(139,92,246,0.3))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(59,130,246,0.3),rgba(139,92,246,0.2))'">
+            <i class="fas fa-magnifying-glass"></i>
+          </button>
+        </div>
+        
+        <!-- Chat Mode (Hidden initially) -->
+        <div id="footerChat" style="display:none;flex-direction:column;gap:6px">
+          <div style="display:flex;gap:8px">
+            <input id="chatInput" type="text" placeholder="Ask about medicine…"
+              style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 12px;color:#fff;font-size:13px;font-family:'Inter',sans-serif;outline:none"
+              onkeydown="if(event.key==='Enter')submitChat()">
+            <button onclick="submitChat()" style="background:linear-gradient(135deg,rgba(139,92,246,0.3),rgba(59,130,246,0.2));border:1px solid rgba(139,92,246,0.3);color:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;transition:all 0.2s" onmouseover="this.style.background='linear-gradient(135deg,rgba(139,92,246,0.45),rgba(59,130,246,0.3))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(139,92,246,0.3),rgba(59,130,246,0.2))'">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+          <button onclick="switchFooterMode('search')" style="align-self:flex-start;background:none;border:none;color:rgba(139,184,255,0.8);font-size:11px;cursor:pointer;padding:4px"><i class="fas fa-reply" style="margin-right:4px"></i>Search another medicine</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMERA ZONE -->
+    <div id="cameraZone">
+      <!-- Camera permission / error overlay -->
+      <div id="cameraGate" style="position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:18px">
+        <div class="glass" style="width:min(520px,92vw);padding:18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div style="width:40px;height:40px;border-radius:12px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.18);display:flex;align-items:center;justify-content:center">
+              <i class="fas fa-camera" style="color:rgba(139,184,255,0.9)"></i>
+            </div>
+            <div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px">Enable camera to scan</div>
+              <div id="cameraGateSub" style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px">We only process frames locally for detection/OCR.</div>
+            </div>
+          </div>
+          <div id="cameraGateHint" style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:14px">
+            Click “Allow camera” and choose your back camera for best results.
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button id="cameraGateBtn" class="scan-btn" style="padding:10px 16px;border-radius:12px" onclick="startCamera(true)">
+              <i class="fas fa-video"></i> Allow camera
+            </button>
+            <button class="retake-btn" style="padding:10px 16px;border-radius:12px" onclick="switchFooterMode('search')">
+              Search by name instead
+            </button>
+          </div>
+        </div>
+      </div>
+      <video id="videoEl" autoplay playsinline muted></video>
+      <div id="scanLine" class="scan-line hidden"></div>
+      <canvas id="cvLive"></canvas>
+      <canvas id="cvFreeze"></canvas>
+
+      <!-- Status pill -->
+      <div id="statusPill">
+        <div class="status-dot dot-idle" id="statusDot"></div>
+        <span id="statusText">Starting camera…</span>
+      </div>
+
+      <!-- Mode toggle -->
+      <div id="modeToggle">
+        <button class="mode-btn active" id="btnAuto" onclick="setMode('auto')">Auto</button>
+        <button class="mode-btn" id="btnManual" onclick="setMode('manual')">Manual</button>
+      </div>
+
+      <!-- Live controls -->
+      <div id="controlsBar">
+        <button class="ctrl-btn" id="torchBtn" onclick="toggleTorch()" title="Torch"><i class="fas fa-bolt"></i></button>
+        <button id="shutterBtn" onclick="manualFreeze()" title="Capture"><i class="fas fa-camera"></i></button>
+        <button class="ctrl-btn" onclick="flipCamera()" title="Flip"><i class="fas fa-rotate"></i></button>
+      </div>
+
+      <!-- Freeze controls -->
+      <div id="freezeControls">
+        <button class="scan-btn" onclick="runOCR()"><i class="fas fa-magnifying-glass"></i> Scan this area</button>
+        <button class="retake-btn" onclick="retake()">Retake</button>
+        <p style="font-size:11px;color:rgba(255,255,255,0.3);font-family:'Inter',sans-serif;margin-top:4px">Drag handles to adjust · tap Scan to identify</p>
+      </div>
+
+      <!-- OCR flash -->
+      <div id="ocrFlash"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+// ── Mock data ──────────────────────────────────────────────
+function mockMedicine(name){
+  return{name:name||'Dolo 650',generic_name:'Paracetamol 650mg',drug_class:'Analgesic / Antipyretic',manufacturer:'Micro Labs Ltd.',schedule:'OTC',pregnancy_category:'B',controlled:false,approval_status:'active',available_forms:['Tablet 500mg','Tablet 650mg','Syrup 125mg/5ml','Drops 100mg/ml'],indian_brand_names:['Crocin','Calpol','Metacin','Pyrigesic','Febrex','Paracip'],alternatives:['Ibuprofen (Brufen)','Diclofenac (Voveran)','Aspirin'],uses:['Fever','Headache','Mild to moderate pain','Post-vaccination fever','Toothache','Muscle pain'],mechanism:'Inhibits prostaglandin synthesis in the central nervous system, reducing pain signals and fever. Acts on the hypothalamic heat-regulation centre to lower elevated body temperature. Has no significant anti-inflammatory activity at standard therapeutic doses.',contraindications:'Severe liver disease or active hepatitis. Known allergy to paracetamol. Children under 3 months.',disease_interactions:['Severe hepatic impairment','Chronic alcoholism','Severe renal impairment','G6PD deficiency'],dosage:{adult:'500mg to 1000mg every 4 to 6 hours as needed',children:'10 to 15mg per kg every 4 to 6 hours. Max 5 doses in 24 hours',elderly:'Same as adult. Use lower end of dosing range (500mg)',renal:'Extend interval to every 8 hours if GFR below 30ml/min',hepatic:'Maximum 2g per day in mild-moderate impairment. Avoid in severe disease',onset:'30 to 60 minutes',duration:'4 to 6 hours',how_to_take:'Can be taken with or without food. Take with a full glass of water',missed_dose:'Take as soon as remembered. Skip if next dose is due within 2 hours. Never double dose',overdose:'Even moderate overdose can cause severe and potentially fatal liver damage. Symptoms may not appear for 24–72 hours. Seek emergency help immediately.'},dosage_max_daily:'4000mg per day (2000mg per day in liver disease)',dosage_notes:['Do not exceed 4g per day in healthy adults','Do not exceed 2g per day with liver disease or chronic alcohol use','Space doses at least 4 hours apart','Many other medicines also contain paracetamol — check all labels carefully'],side_effects_common:['Nausea','Skin rash','Elevated liver enzymes at high doses'],side_effects_uncommon:['Thrombocytopenia','Leucopenia','Hypotension on IV formulation'],side_effects_rare:['Acute liver failure (overdose)','Anaphylaxis','Stevens-Johnson syndrome','Toxic epidermal necrolysis','Agranulocytosis'],se_emergency:['Yellowing of skin or eyes (jaundice)','Severe or persistent abdominal pain','Difficulty breathing or swallowing','Severe skin blistering or peeling','Unusual bruising or bleeding'],se_driving:null,se_long_term:'Daily use at maximum dose for more than a few days may increase risk of kidney damage.',interactions:[{drug:'Alcohol',severity:'high',effect:'Significantly raises risk of liver damage, especially at doses above 2g/day.',action:'Avoid alcohol entirely during treatment'},{drug:'Warfarin',severity:'moderate',effect:'May enhance anticoagulant effect and increase bleeding risk.',action:'Monitor INR closely during concurrent use'},{drug:'Isoniazid',severity:'moderate',effect:'Increased liver toxicity risk due to enzyme induction.',action:'Use with caution. Monitor liver function tests'},{drug:'Cholestyramine',severity:'low',effect:'Reduces absorption of paracetamol when taken at the same time.',action:'Separate doses by at least 1 hour'}],food_interactions:[{item:'Alcohol',effect:'Greatly increases hepatotoxicity risk',action:'Avoid entirely'},{item:'High-fat meal',effect:'Minor delay in absorption',action:'No action needed'}],lab_interactions:['May cause false-positive urine glucose test with Benedict reagent'],storage:'Store below 25°C in a dry place. Protect from light and moisture. Keep out of reach of children.',shelf_life:'3 years from manufacture. Do not use after expiry date on pack.',source:'rag',confidence:'low',sources:[{field:'dosage',source_name:'ICMR Guidelines',source_url:'https://main.icmr.nic.in/content/publications',scraped_date:'2025-01-15'},{field:'uses',source_name:'WHO Factsheet',source_url:'https://www.who.int/publications/i/item/essential-medicines',scraped_date:'2025-01-15'},{field:'interactions',source_name:'OpenFDA',source_url:'https://api.fda.gov/drug/label.json?search=openfda.generic_name:paracetamol',scraped_date:'2025-01-15'},{field:'side_effects',source_name:'NHS',source_url:'https://www.nhs.uk/medicines/paracetamol-for-adults/',scraped_date:'2025-01-15'}]};
+}
+
+// ── Helpers ────────────────────────────────────────────────
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function chips(arr,cls='chip'){return arr&&arr.length?'<div class="chips">'+arr.map(a=>`<span class="${cls}">${esc(a)}</span>`).join('')+'</div>':'<span style="font-size:12px;color:rgba(255,255,255,0.3)">—</span>'}
+function infoRow(label,val){if(!val)return'';return`<div class="info-row"><span class="info-label">${label}</span><span class="info-value">${esc(val)}</span></div>`}
+function warnBox(cls,icon,title,content){return`<div class="warn-box ${cls}"><strong><i class="fas ${icon}" style="margin-right:6px"></i>${title}</strong>${content?'<div style="margin-top:4px">'+content+'</div>':''}</div>`}
+function schedBadge(s){const m={OTC:'badge-otc',Rx:'badge-rx',H:'badge-h',X:'badge-x'};return`<span class="badge ${m[s]||'badge-rx'}">${esc(s)}</span>`}
+function sourceBadge(src){const m={rag:'badge-ai',local:'badge-db',openfda:'badge-fda'};const k=src&&src.toLowerCase();return`<span class="badge ${m[k]||'badge-ai'}">${src==='rag'?'AI':'src'==='local'?'Local DB':'OpenFDA'}</span>`}
+
+// ── Tab switching ──────────────────────────────────────────
+function switchTab(i){
+  document.querySelectorAll('.tab-btn').forEach((b,j)=>b.classList.toggle('active',i===j));
+  document.querySelectorAll('.tab-pane').forEach((p,j)=>p.classList.toggle('active',i===j));
+}
+
+// ── Populate panel ─────────────────────────────────────────
+function populatePanel(d){
+  // Hide skeleton/empty, show content
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('skeletonState').style.display='none';
+  document.getElementById('medHeader').style.display='block';
+  document.getElementById('tabBar').style.display='flex';
+  document.getElementById('tabPanes').style.display='block';
+
+  // Header
+  const srcKey=(d.source||'').toLowerCase();
+  const srcLabel=srcKey==='rag'?'AI':srcKey==='local'?'Local DB':'OpenFDA';
+  const srcBadgeCls=srcKey==='rag'?'badge-ai':srcKey==='local'?'badge-db':'badge-fda';
+  let hdr=`<div style="margin-bottom:8px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.35rem;font-weight:800;line-height:1.2;margin-bottom:4px">${esc(d.name)}</div>`;
+  if(d.generic_name)hdr+=`<div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:8px">${esc(d.generic_name)}</div>`;
+  hdr+=`<div style="display:flex;flex-wrap:wrap;gap:5px;align-items:center">`;
+  if(d.schedule)hdr+=schedBadge(d.schedule);
+  if(d.pregnancy_category)hdr+=`<span class="badge badge-preg">Preg ${esc(d.pregnancy_category)}</span>`;
+  if(d.controlled)hdr+=`<span class="badge badge-x">Controlled</span>`;
+  hdr+=`<span class="badge ${srcBadgeCls}">${srcLabel}</span>`;
+  hdr+=`</div></div>`;
+  if(d.approval_status&&d.approval_status!=='active')hdr+=warnBox('warn-red','fa-triangle-exclamation',`This medicine has been ${esc(d.approval_status)} — do not use`,'');
+  if(srcKey==='rag'||d.confidence==='low')hdr+=warnBox('warn-amber','fa-circle-exclamation','AI-generated · verify with your pharmacist','');
+  
+  // Export button
+  hdr+=`
+    <div style="position:absolute;top:14px;right:16px">
+      <button onclick="toggleExport(event)" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:11px;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s">
+        <i class="fas fa-share-nodes"></i> Export
+      </button>
+      <div id="exportDropdown" class="export-dropdown">
+        <button class="export-btn" onclick="exportSummary()"><i class="fas fa-copy"></i> Copy summary</button>
+        <button class="export-btn" onclick="exportLink()"><i class="fas fa-link"></i> Share link</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('medHeader').innerHTML=hdr;
+  document.getElementById('medHeader').style.position='relative';
+
+  // Tab 0 — Overview
+  let p0='';
+  if(d.uses&&d.uses.length){p0+=`<div class="section-label">Uses</div>${chips(d.uses)}`}
+  if(d.mechanism){p0+=`<div class="section-label" style="margin-top:14px">How it works</div><p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.75">${esc(d.mechanism)}</p>`}
+  if(d.contraindications){p0+=warnBox('warn-amber','fa-ban','Do not use if',`<p style="margin-top:4px">${esc(d.contraindications)}</p>`)}
+  if(d.indian_brand_names&&d.indian_brand_names.length){p0+=`<div class="section-label" style="margin-top:14px">Other brand names in India</div>${chips(d.indian_brand_names,'chip chip-orange')}`}
+  document.getElementById('pane0').innerHTML=p0;
+
+  // Tab 1 — Dosage
+  const dos=d.dosage||{};
+  let p1='';
+  p1+=infoRow('Adult',dos.adult);
+  p1+=infoRow('Children',dos.children);
+  p1+=infoRow('Elderly',dos.elderly);
+  if(dos.renal)p1+=infoRow('Kidney disease',dos.renal);
+  if(dos.hepatic)p1+=infoRow('Liver disease',dos.hepatic);
+  p1+=infoRow('Max per day',d.dosage_max_daily);
+  p1+=infoRow('Onset',dos.onset);
+  p1+=infoRow('Duration',dos.duration);
+  p1+=infoRow('How to take',dos.how_to_take);
+  p1+=infoRow('Missed dose',dos.missed_dose);
+  if(d.dosage_notes&&d.dosage_notes.length){p1+=warnBox('warn-amber','fa-circle-info','Dosage notes','<ul>'+d.dosage_notes.map(n=>`<li>${esc(n)}</li>`).join('')+'</ul>')}
+  if(dos.overdose){p1+=warnBox('warn-red','fa-skull-crossbones','Overdose',`<p>${esc(dos.overdose)}</p>`)}
+  document.getElementById('pane1').innerHTML=p1;
+
+  // Tab 2 — Side effects
+  let p2='';
+  if(d.side_effects_common&&d.side_effects_common.length){p2+=`<div class="section-label">Common</div>${chips(d.side_effects_common)}`}
+  if(d.side_effects_uncommon&&d.side_effects_uncommon.length){p2+=`<div class="section-label" style="margin-top:12px">Less common</div>${chips(d.side_effects_uncommon,'chip chip-amber')}`}
+  if(d.side_effects_rare&&d.side_effects_rare.length){p2+=`<div class="section-label" style="margin-top:12px">Rare and serious</div>${chips(d.side_effects_rare,'chip chip-amber')}`}
+  if(d.se_emergency&&d.se_emergency.length){p2+=warnBox('warn-red','fa-triangle-exclamation','Seek emergency help if you notice','<ul>'+d.se_emergency.map(e=>`<li>${esc(e)}</li>`).join('')+'</ul>')}
+  if(d.se_driving){p2+=warnBox('warn-amber','fa-car','Driving / machinery',`<p>${esc(d.se_driving)}</p>`)}
+  if(d.se_long_term){p2+=warnBox('warn-orange','fa-clock','Long-term use',`<p>${esc(d.se_long_term)}</p>`)}
+  document.getElementById('pane2').innerHTML=p2;
+
+  // Tab 3 — Interactions
+  let p3='';
+  const sortedInter=(d.interactions||[]).slice().sort((a,b)=>{const o={high:0,moderate:1,low:2};return(o[a.severity]||1)-(o[b.severity]||1)});
+  if(sortedInter.length){
+    p3+=`<div class="section-label">Drug interactions</div>`;
+    sortedInter.forEach(i=>{
+      const sc=i.severity==='high'?'sev-high':i.severity==='moderate'?'sev-moderate':'sev-low';
+      p3+=`<div class="icard"><div class="icard-header"><span class="icard-drug">${esc(i.drug)}</span><span class="badge ${sc}">${esc(i.severity)}</span></div><div class="icard-effect">${esc(i.effect)}</div><div class="icard-action"><i class="fas fa-circle-info" style="margin-top:2px;flex-shrink:0"></i><span>${esc(i.action)}</span></div></div>`;
+    });
+  }
+  if(d.food_interactions&&d.food_interactions.length){
+    p3+=`<div class="section-label" style="margin-top:14px">Food and drink</div>`;
+    d.food_interactions.forEach(f=>{p3+=`<div class="icard"><div class="icard-header"><span class="icard-drug">${esc(f.item)}</span></div><div class="icard-effect">${esc(f.effect)}</div><div class="icard-action"><i class="fas fa-circle-info" style="margin-top:2px;flex-shrink:0"></i><span>${esc(f.action)}</span></div></div>`});
+  }
+  if(d.disease_interactions&&d.disease_interactions.length){p3+=`<div class="section-label" style="margin-top:14px">Disease interactions</div>${chips(d.disease_interactions,'chip chip-amber')}`}
+  if(d.lab_interactions&&d.lab_interactions.length){p3+=`<div class="section-label" style="margin-top:14px">Lab test interference</div>${chips(d.lab_interactions)}`}
+  document.getElementById('pane3').innerHTML=p3;
+
+  // Tab 4 — Storage
+  let p4='';
+  p4+=infoRow('Storage',d.storage);
+  p4+=infoRow('Shelf life',d.shelf_life);
+  if(d.available_forms&&d.available_forms.length){p4+=`<div class="section-label" style="margin-top:14px">Available forms</div>${chips(d.available_forms)}`}
+  if(d.alternatives&&d.alternatives.length){p4+=`<div class="section-label" style="margin-top:14px">Alternatives in same class</div>${chips(d.alternatives,'chip chip-orange')}`}
+  document.getElementById('pane4').innerHTML=p4;
+
+  // Tab 5 — More info
+  const schedExplain={OTC:'Over-the-counter — available without prescription',Rx:'Prescription required from a registered medical practitioner',H:'Hospital-only — dispensed only in hospital settings',X:'Controlled substance — restricted dispensing'};
+  const pregExplain={A:'Adequate studies show no risk to fetus',B:'Animal studies show no risk; no adequate human studies',C:'Animal studies show adverse effects; no adequate human studies',D:'Evidence of human fetal risk; benefits may outweigh risks',X:'Studies show fetal abnormalities; contraindicated in pregnancy'};
+  let p5='';
+  if(d.schedule)p5+=infoRow('Schedule',`${d.schedule} — ${schedExplain[d.schedule]||d.schedule}`);
+  if(d.pregnancy_category)p5+=infoRow('Pregnancy',`Category ${d.pregnancy_category} — ${pregExplain[d.pregnancy_category]||''}`);
+  p5+=infoRow('Controlled',d.controlled?'Yes — restricted substance':'No');
+  p5+=infoRow('Approval status',d.approval_status);
+  p5+=infoRow('Manufacturer',d.manufacturer);
+  p5+=infoRow('Drug class',d.drug_class);
+  if(d.sources&&d.sources.length){
+    p5+=`<div class="section-label" style="margin-top:16px">All sources</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">`;
+    d.sources.forEach(s=>{p5+=`<a href="${esc(s.source_url)}" target="_blank" rel="noopener" class="source-link"><i class="fas fa-arrow-up-right-from-square" style="font-size:10px"></i>${esc(s.source_name)} — ${esc(s.field)}</a>`});
+    p5+=`</div>`;
+  }
+  document.getElementById('pane5').innerHTML=p5;
+
+  // Set chat mode
+  switchFooterMode('chat', d.name);
+  window.currentMedicineData = d;
+  document.getElementById('chatMessages').innerHTML = `
+    <div id="chatEmptyState" style="text-align:center;padding:32px 16px;color:rgba(255,255,255,0.4)">
+      <i class="fas fa-sparkles" style="font-size:24px;color:rgba(251,191,36,0.5);margin-bottom:12px"></i>
+      <p style="font-size:12px;line-height:1.6">Scan a medicine and ask me anything — dosage, interactions, safety for your condition, alternatives…</p>
+    </div>
+  `;
+
+  switchTab(0);
+}
+
+// ── Export / Share ─────────────────────────────────────────
+function toggleExport(e){
+  e.stopPropagation();
+  document.getElementById('exportDropdown').classList.toggle('show');
+}
+document.addEventListener('click', ()=>document.getElementById('exportDropdown')?.classList.remove('show'));
+
+function exportSummary(){
+  if(!window.currentMedicineData) return;
+  const d = window.currentMedicineData;
+  const t = `${d.name}\n${d.generic_name||''}\nUses: ${d.uses?.join(', ')||'N/A'}\nAdult dose: ${d.dosage?.adult||'N/A'}\nWarnings: ${d.contraindications||'None'}`;
+  navigator.clipboard.writeText(t).then(()=>alert('Summary copied!'));
+}
+function exportLink(){
+  if(!window.currentMedicineData) return;
+  const url = window.location.origin + window.location.pathname + '?medicine=' + encodeURIComponent(window.currentMedicineData.name);
+  navigator.clipboard.writeText(url).then(()=>alert('Link copied!'));
+}
+
+// ── Search & Chat modes ────────────────────────────────────
+function switchFooterMode(mode, medName){
+  if(mode === 'search'){
+    document.getElementById('footerSearch').style.display='flex';
+    document.getElementById('footerChat').style.display='none';
+    document.getElementById('searchInput').value='';
+    showSkeleton(); // reset
+    document.getElementById('skeletonState').style.display='none';
+    document.getElementById('emptyState').style.display='flex';
+  } else {
+    document.getElementById('footerSearch').style.display='none';
+    document.getElementById('footerChat').style.display='flex';
+    document.getElementById('chatInput').placeholder = `Ask about ${medName}…`;
+    document.getElementById('chatInput').value = '';
+  }
+}
+
+async function doSearch(){
+  const q=document.getElementById('searchInput').value.trim();
+  if(!q)return;
+  showSkeleton();
+  try{
+    const r=await fetch('/api/v1/lens/lookup?name=' + encodeURIComponent(q));
+    const data=r.ok?await r.json():mockMedicine(q);
+    populatePanel(data);
+  }catch{populatePanel(mockMedicine(q))}
+}
+
+async function submitChat(){
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if(!msg || !window.currentMedicineData) return;
+  
+  input.value = '';
+  switchTab(6);
+  document.getElementById('chatEmptyState').style.display = 'none';
+  
+  const chatBox = document.getElementById('chatMessages');
+  chatBox.innerHTML += `<div class="chat-msg-user">${esc(msg)}</div>`;
+  
+  const idId = 'ai-typing-'+Date.now();
+  chatBox.innerHTML += `<div id="${idId}" class="chat-msg-ai"><i class="fas fa-ellipsis fa-fade"></i></div>`;
+  document.getElementById('pane6').scrollTop = document.getElementById('pane6').scrollHeight;
+  
+  try {
+    const r = await fetch('/api/v1/lens/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        message: msg,
+        medicine_name: window.currentMedicineData.name,
+        medicine_context: window.currentMedicineData
+      })
+    });
+    const data = await r.json();
+    document.getElementById(idId).innerHTML = marked.parse ? marked.parse(data.reply) : data.reply;
+  } catch(e) {
+    document.getElementById(idId).innerHTML = 'Sorry, there was an error analyzing the medicine data.';
+  }
+  document.getElementById('pane6').scrollTop = document.getElementById('pane6').scrollHeight;
+}
+
+// ── History ────────────────────────────────────────────────
+function toggleHistory(){
+  let d = document.getElementById('historyDrawer');
+  if(!d){
+    d = document.createElement('div');
+    d.id = 'historyDrawer';
+    d.innerHTML = `<div style="padding:16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center">
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">Recent Scans</h2>
+      <button onclick="toggleHistory()" style="background:none;border:none;color:#fff;cursor:pointer"><i class="fas fa-times"></i></button>
+    </div><div id="histList" style="flex:1;overflow-y:auto"></div>`;
+    document.getElementById('appShell').appendChild(d);
+  }
+  
+  if(d.classList.contains('open')){
+    d.classList.remove('open');
+  } else {
+    loadHistory();
+    d.classList.add('open');
+  }
+}
+
+function saveToHistory(dObj, thumbUrl){
+  try {
+    let hist = JSON.parse(localStorage.getItem('lensHistory')||'[]');
+    // prepend new
+    hist.unshift({
+      name: dObj.name,
+      generic_name: dObj.generic_name,
+      timestamp: Date.now(),
+      data: dObj,
+      thumb: thumbUrl || ''
+    });
+    if(hist.length>10) hist = hist.slice(0,10);
+    localStorage.setItem('lensHistory', JSON.stringify(hist));
+  } catch(e){}
+}
+
+function loadHistory(){
+  const hl = document.getElementById('histList');
+  hl.innerHTML = '';
+  try {
+    const hist = JSON.parse(localStorage.getItem('lensHistory')||'[]');
+    if(!hist.length) {
+      hl.innerHTML = '<div style="padding:24px;text-align:center;color:rgba(255,255,255,0.4);font-size:13px">No recent scans</div>';
+      return;
+    }
+    hist.forEach((h, i) => {
+      const d = new Date(h.timestamp);
+      const timeStr = `${d.toLocaleDateString()} ${d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+      const div = document.createElement('div');
+      div.className = 'hist-item';
+      div.innerHTML = `<img src="${h.thumb}" class="hist-thumb"><div class="hist-info"><div class="hist-name">${esc(h.name)}</div><div class="hist-time">${timeStr}</div></div><button class="hist-del" onclick="deleteHistoryItem(${i}); event.stopPropagation()"><i class="fas fa-trash"></i></button>`;
+      div.onclick = () => {
+        populatePanel(h.data);
+        toggleHistory();
+      };
+      hl.appendChild(div);
+    });
+  } catch(e){}
+}
+
+function deleteHistoryItem(idx){
+  try {
+    let hist = JSON.parse(localStorage.getItem('lensHistory')||'[]');
+    hist.splice(idx, 1);
+    localStorage.setItem('lensHistory', JSON.stringify(hist));
+    loadHistory();
+  } catch(e){}
+}
+
+function showSkeleton(){
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('skeletonState').style.display='block';
+  document.getElementById('medHeader').style.display='none';
+  document.getElementById('tabBar').style.display='none';
+  document.getElementById('tabPanes').style.display='none';
+}
+</script>
+
+<script>
+// ── Camera & Detection ─────────────────────────────────────
+const video=document.getElementById('videoEl');
+const cvLive=document.getElementById('cvLive');
+const cvFreeze=document.getElementById('cvFreeze');
+const ctxLive=cvLive.getContext('2d');
+const ctxFreeze=cvFreeze.getContext('2d');
+const cameraZone=document.getElementById('cameraZone');
+
+let model=null, stream=null, facingMode='environment', torchOn=false;
+let mode='auto'; // 'auto' | 'manual'
+let frozen=false, lastOCR=0;
+let bbox={x:0,y:0,w:0,h:0}, stableKey='', stableAt=0;
+let dragHandle=null, dragStart=null, bboxAtDrag=null;
+let raf=null;
+let ocrWorkerPromise=null;
+
+function showCameraGate(message){
+  const gate=document.getElementById('cameraGate');
+  const hint=document.getElementById('cameraGateHint');
+  const sub=document.getElementById('cameraGateSub');
+  if(message){
+    hint.textContent=message;
+    sub.textContent='Camera permission is required for live scanning.';
+  }
+  gate.style.display='flex';
+}
+function hideCameraGate(){
+  const gate=document.getElementById('cameraGate');
+  gate.style.display='none';
+}
+
+// Resize canvases to match container
+function syncCanvasSize(){
+  const r=cameraZone.getBoundingClientRect();
+  [cvLive,cvFreeze].forEach(c=>{c.width=r.width;c.height=r.height});
+}
+new ResizeObserver(syncCanvasSize).observe(cameraZone);
+syncCanvasSize();
+
+// Status helpers
+function setStatus(dotCls,text){
+  document.getElementById('statusDot').className='status-dot '+dotCls;
+  document.getElementById('statusText').textContent=text;
+}
+
+// Start camera
+async function startCamera(fromUserGesture=false){
+  setStatus('dot-idle','Starting camera…');
+  try{
+    hideCameraGate();
+    if(stream)stream.getTracks().forEach(t=>t.stop());
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode,width:{ideal:1920},height:{ideal:1080}},audio:false});
+    video.srcObject=stream;
+    await new Promise(r=>video.onloadedmetadata=r);
+    setStatus('dot-scan','Scanning for medicine…');
+    startDetectionLoop();
+  }catch(e){
+    setStatus('dot-idle','Camera unavailable — use search');
+    console.warn('Camera error:',e);
+    // Show a clear permission UI for the common blocked/denied cases
+    showCameraGate('Camera is blocked or unavailable. Please allow camera access in your browser/site settings, then try again.');
+  }
+}
+
+// Load COCO-SSD
+async function loadModel(){
+  try{model=await cocoSsd.load();console.log('COCO-SSD loaded')}
+  catch(e){console.warn('COCO-SSD failed:',e)}
+}
+
+// Detection loop
+const DETECT_CLASSES=['bottle','cup','book','cell phone','remote','keyboard','laptop','backpack','handbag','bowl','suitcase','mouse'];
+
+async function detectFrame(){
+  if(frozen||video.readyState<2){raf=requestAnimationFrame(detectFrame);return}
+  const cw=cvLive.width, ch=cvLive.height;
+  let det=null;
+
+  if(model){
+    try{
+      const preds=await model.detect(video);
+      const filtered=preds.filter(p=>DETECT_CLASSES.includes(p.class)&&p.score>0.28);
+      if(filtered.length){
+        const best=filtered.reduce((a,b)=>b.score>a.score?b:a);
+        const sx=cw/video.videoWidth, sy=ch/video.videoHeight;
+        det={x:best.bbox[0]*sx,y:best.bbox[1]*sy,w:best.bbox[2]*sx,h:best.bbox[3]*sy,conf:best.score};
+      }
+    }catch{}
+  }
+
+  // Pixel contrast fallback
+  if(!det){
+    const off=Object.assign(document.createElement('canvas'),{width:80,height:80});
+    off.getContext('2d').drawImage(video,0,0,80,80);
+    const id=off.getContext('2d').getImageData(0,0,80,80).data;
+    let sum=0,sum2=0,n=id.length/4;
+    for(let i=0;i<id.length;i+=4){const g=0.299*id[i]+0.587*id[i+1]+0.114*id[i+2];sum+=g;sum2+=g*g}
+    const mean=sum/n,variance=sum2/n-mean*mean;
+    if(variance>600&&mean>15&&mean<240){
+      const pad=0.1;
+      det={x:cw*pad,y:ch*pad,w:cw*(1-2*pad),h:ch*(1-2*pad),conf:0.35};
+    }
+  }
+
+  if(det){
+    bbox={x:det.x,y:det.y,w:det.w,h:det.h};
+    const key=`${Math.round(det.x/18)},${Math.round(det.y/18)},${Math.round(det.w/18)},${Math.round(det.h/18)}`;
+    if(key!==stableKey){stableKey=key;stableAt=Date.now()}
+    const progress=Math.min((Date.now()-stableAt)/700,1);
+    drawLiveOverlay(det,progress,det.conf);
+    if(mode==='auto'&&progress>=1&&Date.now()-lastOCR>5000){
+      // White pulse before freeze
+      ctxLive.fillStyle='rgba(255,255,255,0.8)';
+      ctxLive.fillRect(det.x, det.y, det.w, det.h);
+      setTimeout(freeze, 50);
+    }
+  }else{
+    ctxLive.clearRect(0,0,cw,ch);
+    stableKey='';stableAt=Date.now();
+    setStatus('dot-scan','Scanning for medicine…');
+  }
+  raf=requestAnimationFrame(detectFrame);
+}
+
+function startDetectionLoop(){
+  if(raf)cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(detectFrame);
+}
+
+// Draw live overlay
+function drawLiveOverlay(det,progress,conf){
+  const cw=cvLive.width,ch=cvLive.height;
+  const {x,y,w,h}=det;
+  ctxLive.clearRect(0,0,cw,ch);
+
+  // Dim outside
+  ctxLive.fillStyle='rgba(0,0,0,0.32)';
+  ctxLive.fillRect(0,0,cw,ch);
+  ctxLive.clearRect(x,y,w,h);
+
+  // Rounded rect border (Google Lens style, filled line with curvy edges)
+  const r=18;
+  ctxLive.beginPath();
+  ctxLive.moveTo(x+r,y);ctxLive.lineTo(x+w-r,y);ctxLive.arcTo(x+w,y,x+w,y+r,r);
+  ctxLive.lineTo(x+w,y+h-r);ctxLive.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctxLive.lineTo(x+r,y+h);ctxLive.arcTo(x,y+h,x,y+h-r,r);
+  ctxLive.lineTo(x,y+r);ctxLive.arcTo(x,y,x+r,y,r);
+  ctxLive.closePath();
+  
+  // Outer thick white stroke with shadow
+  ctxLive.shadowColor = 'rgba(0,0,0,0.4)';
+  ctxLive.shadowBlur = 10;
+  ctxLive.shadowOffsetY = 2;
+  ctxLive.strokeStyle='rgba(255,255,255,0.95)';
+  ctxLive.lineWidth=3.5;
+  ctxLive.stroke();
+  
+  // Reset shadow for subsequent drawings
+  ctxLive.shadowColor = 'transparent';
+  ctxLive.shadowBlur = 0;
+
+  // Scan line
+  const t=(performance.now()%1800)/1800;
+  const sy2=y+t*h;
+  const grad=ctxLive.createLinearGradient(x,sy2-8,x,sy2+8);
+  grad.addColorStop(0,'rgba(255,255,255,0)');grad.addColorStop(0.5,'rgba(255,255,255,0.6)');grad.addColorStop(1,'rgba(255,255,255,0)');
+  ctxLive.fillStyle=grad;ctxLive.fillRect(x,sy2-8,w,16);
+
+  // Progress ring
+  if(progress>0){
+    const cx2=x+w/2,cy2=y+h/2,rad=18;
+    ctxLive.beginPath();ctxLive.arc(cx2,cy2,rad,0,Math.PI*2);
+    ctxLive.strokeStyle='rgba(255,255,255,0.1)';ctxLive.lineWidth=3;ctxLive.stroke();
+    ctxLive.beginPath();ctxLive.arc(cx2,cy2,rad,-Math.PI/2,-Math.PI/2+progress*Math.PI*2);
+    ctxLive.strokeStyle=progress>=1?'rgba(34,197,94,0.9)':'rgba(249,115,22,0.9)';ctxLive.lineWidth=3;ctxLive.stroke();
+  }
+
+  // Confidence badge "Medicine · XX%"
+  const pct=Math.round(conf*100);
+  ctxLive.fillStyle='rgba(59,130,246,0.95)';
+  const badgeText = `Medicine · ${pct}%`;
+  ctxLive.font='600 11px Inter,sans-serif';
+  const tm = ctxLive.measureText(badgeText);
+  const bw=tm.width + 16, bh=22, bx=x, by=y-26;
+  ctxLive.beginPath();ctxLive.roundRect(bx,by,bw,bh,11);ctxLive.fill();
+  ctxLive.fillStyle='#fff';ctxLive.textAlign='center';ctxLive.textBaseline='middle';
+  ctxLive.fillText(badgeText,bx+bw/2,by+bh/2+1);
+
+  // Status
+  if(progress>=1){setStatus('dot-lock','Object locked — hold still')}
+  else{setStatus('dot-scan',`Locking… ${Math.round(progress*100)}%`)}
+}
+
+// Freeze
+function freeze(){
+  if(frozen)return;
+  frozen=true;lastOCR=Date.now();
+  syncCanvasSize();
+  ctxFreeze.drawImage(video,0,0,cvFreeze.width,cvFreeze.height);
+  cvLive.style.display='none';
+  cvFreeze.style.display='block';
+  document.getElementById('controlsBar').style.display='none';
+  document.getElementById('freezeControls').style.display='flex';
+  setStatus('dot-lock','Object locked — hold still');
+  drawFreezeOverlay();
+  setupDrag();
+}
+
+function manualFreeze(){if(!frozen)freeze()}
+
+function retake(){
+  frozen=false;
+  cvLive.style.display='block';
+  cvFreeze.style.display='none';
+  document.getElementById('controlsBar').style.display='flex';
+  document.getElementById('freezeControls').style.display='none';
+  ctxLive.clearRect(0,0,cvLive.width,cvLive.height);
+  setStatus('dot-scan','Scanning for medicine…');
+  startDetectionLoop();
+}
+
+// Draw freeze overlay with handles
+const HANDLES=['tl','tc','tr','ml','mr','bl','bc','br'];
+function getHandlePos(b){
+  return{tl:[b.x,b.y],tc:[b.x+b.w/2,b.y],tr:[b.x+b.w,b.y],ml:[b.x,b.y+b.h/2],mr:[b.x+b.w,b.y+b.h/2],bl:[b.x,b.y+b.h],bc:[b.x+b.w/2,b.y+b.h],br:[b.x+b.w,b.y+b.h]};
+}
+
+function drawFreezeOverlay(){
+  const cw=cvFreeze.width,ch=cvFreeze.height;
+  ctxFreeze.clearRect(0,0,cw,ch);
+  ctxFreeze.drawImage(video,0,0,cw,ch);
+  // Dim outside
+  ctxFreeze.fillStyle='rgba(0,0,0,0.5)';ctxFreeze.fillRect(0,0,cw,ch);
+  ctxFreeze.clearRect(bbox.x,bbox.y,bbox.w,bbox.h);
+  // Dashed border
+  ctxFreeze.setLineDash([6,4]);ctxFreeze.strokeStyle='rgba(255,255,255,0.85)';ctxFreeze.lineWidth=1.5;
+  ctxFreeze.strokeRect(bbox.x,bbox.y,bbox.w,bbox.h);
+  ctxFreeze.setLineDash([]);
+  // Handles
+  const hp=getHandlePos(bbox);
+  Object.values(hp).forEach(([hx,hy])=>{
+    ctxFreeze.beginPath();ctxFreeze.arc(hx,hy,8,0,Math.PI*2);ctxFreeze.fillStyle='#fff';ctxFreeze.fill();
+    ctxFreeze.beginPath();ctxFreeze.arc(hx,hy,5,0,Math.PI*2);ctxFreeze.fillStyle='#3b82f6';ctxFreeze.fill();
+  });
+}
+
+// Drag handles
+function setupDrag(){
+  cvFreeze.onmousedown=startDrag;cvFreeze.onmousemove=doDrag;cvFreeze.onmouseup=endDrag;cvFreeze.onmouseleave=endDrag;
+  cvFreeze.ontouchstart=e=>{e.preventDefault();startDrag(e.touches[0])};
+  cvFreeze.ontouchmove=e=>{e.preventDefault();doDrag(e.touches[0])};
+  cvFreeze.ontouchend=endDrag;
+}
+
+function getCanvasXY(e){
+  const r=cvFreeze.getBoundingClientRect();
+  return{x:(e.clientX-r.left),y:(e.clientY-r.top)};
+}
+
+function startDrag(e){
+  const {x,y}=getCanvasXY(e);
+  const hp=getHandlePos(bbox);
+  let nearest=null,minD=20;
+  Object.entries(hp).forEach(([k,[hx,hy]])=>{
+    const d=Math.hypot(x-hx,y-hy);if(d<minD){minD=d;nearest=k}
+  });
+  if(nearest){dragHandle=nearest}
+  else if(x>bbox.x&&x<bbox.x+bbox.w&&y>bbox.y&&y<bbox.y+bbox.h){dragHandle='move'}
+  else return;
+  dragStart={x,y};bboxAtDrag={...bbox};
+}
+
+function doDrag(e){
+  if(!dragHandle)return;
+  const {x,y}=getCanvasXY(e);
+  const dx=x-dragStart.x,dy=y-dragStart.y;
+  const b={...bboxAtDrag};
+  if(dragHandle==='move'){b.x+=dx;b.y+=dy}
+  else{
+    if(dragHandle.includes('l')){b.x=Math.min(b.x+dx,b.x+b.w-40);b.w=Math.max(40,bboxAtDrag.w-dx)}
+    if(dragHandle.includes('r')){b.w=Math.max(40,bboxAtDrag.w+dx)}
+    if(dragHandle.includes('t')){b.y=Math.min(b.y+dy,b.y+b.h-40);b.h=Math.max(40,bboxAtDrag.h-dy)}
+    if(dragHandle.includes('b')){b.h=Math.max(40,bboxAtDrag.h+dy)}
+  }
+  bbox=b;drawFreezeOverlay();
+}
+
+function endDrag(){dragHandle=null}
+
+// OCR pipeline
+async function runOCR(){
+  setStatus('dot-ocr','Reading label…');
+  showSkeleton();
+  document.getElementById('freezeControls').style.display='none';
+
+  // Crop from the *frozen* canvas (stable frame) instead of the live video.
+  const pad=14;
+  const cx=Math.max(0, bbox.x - pad);
+  const cy=Math.max(0, bbox.y - pad);
+  const cw=Math.min(cvFreeze.width - cx, bbox.w + pad*2);
+  const ch=Math.min(cvFreeze.height - cy, bbox.h + pad*2);
+  const crop=Object.assign(document.createElement('canvas'),{width:Math.round(cw),height:Math.round(ch)});
+  crop.getContext('2d').drawImage(cvFreeze, cx, cy, cw, ch, 0, 0, cw, ch);
+
+  // Preprocess
+  const proc=Object.assign(document.createElement('canvas'),{width:crop.width,height:crop.height});
+  proc.getContext('2d').drawImage(crop,0,0);
+  preprocess(proc);
+
+  let raw='';
+  // Local Tesseract OCR (configured worker for better accuracy)
+  try{
+    setStatus('dot-ocr','OCR processing…');
+    if(!ocrWorkerPromise){
+      ocrWorkerPromise=(async()=>{
+        const w=await Tesseract.createWorker('eng', 1, {
+          logger:m=>{ if(m.status==='recognizing text') setStatus('dot-ocr',`OCR ${Math.round(m.progress*100)}%`) }
+        });
+        // Better defaults for medicine packaging: block text, keep spacing, restrict chars a bit
+        await w.setParameters({
+          tessedit_pageseg_mode: '6', // PSM_SINGLE_BLOCK
+          preserve_interword_spaces: '1'
+        });
+        return w;
+      })();
+    }
+    const worker=await ocrWorkerPromise;
+    const result=await worker.recognize(proc);
+    raw=(result?.data?.text)||'';
+  }catch(e){console.warn('Tesseract error:',e)}
+
+  // Flash raw text
+  if(raw){
+    const flash=document.getElementById('ocrFlash');
+    flash.textContent=raw.replace(/\n/g,' · ').substring(0,90);
+    flash.style.opacity='1';
+    setTimeout(()=>{flash.style.opacity='0'},3500);
+  }
+
+  // Parse medicine name
+  const name=parseMedicineName(raw);
+  setStatus('dot-ocr','Looking up medicine…');
+
+  // Lookup
+  try{
+    const resp=await fetch(`/api/v1/lens/lookup?name=${encodeURIComponent(name)}`);
+    const data=resp.ok?await resp.json():mockMedicine(name);
+    populatePanel(data);
+    setStatus('dot-done','Done');
+  }catch{
+    populatePanel(mockMedicine(name));
+    setStatus('dot-done','Done (offline)');
+  }
+
+  document.getElementById('freezeControls').style.display='flex';
+}
+
+function preprocess(canvas){
+  const ctx=canvas.getContext('2d');
+  const id=ctx.getImageData(0,0,canvas.width,canvas.height);
+  const d=id.data;
+  
+  // Calculate average brightness
+  let sum = 0;
+  for(let i=0; i<d.length; i+=4) {
+    sum += (0.299*d[i] + 0.587*d[i+1] + 0.114*d[i+2]);
+  }
+  const avg = sum / (d.length/4);
+  const threshold = avg > 128 ? avg * 0.9 : avg * 1.1; // Dynamic threshold based on average
+
+  for(let i=0;i<d.length;i+=4){
+    const grey=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+    // Apply contrast and threshold
+    const val = grey > threshold ? 255 : 0;
+    d[i]=d[i+1]=d[i+2]=val;
+  }
+  ctx.putImageData(id,0,0);
+}
+
+function parseMedicineName(raw){
+  if(!raw)return'Unknown Medicine';
+  
+  // Clean text: remove special chars but keep space/alphanumeric
+  const lines = raw.toUpperCase().split('\n').map(l => l.trim()).filter(l => l.length > 2);
+  const STOP = new Set(['MG', 'ML', 'TAB', 'CAP', 'EXP', 'MFG', 'DATE', 'BATCH', 'LOT', 'RX', 'FOR', 'USE', 'EACH', 'STORE', 'KEEP', 'TABLET', 'CAPSULE', 'CONTENT', 'WARNING', 'CAUTION', 'INDICATION']);
+
+  // Prefer the "most name-like" line: many letters, not mostly stopwords/numbers
+  const scored = lines.map(l => {
+    const cleaned = l.replace(/[^A-Z0-9 \-+()]/g,' ').replace(/\s+/g,' ').trim();
+    const parts = cleaned.split(' ').filter(Boolean);
+    const alpha = (cleaned.match(/[A-Z]/g)||[]).length;
+    const digits = (cleaned.match(/[0-9]/g)||[]).length;
+    const stopHits = parts.reduce((n,p)=>n+(STOP.has(p)?1:0),0);
+    const score = alpha*2 - digits*0.5 - stopHits*4 + Math.min(cleaned.length, 40);
+    return {raw:l, cleaned, score};
+  }).sort((a,b)=>b.score-a.score);
+  const bestLine = scored.length ? scored[0].cleaned : '';
+
+  // Rank name candidates
+  const candidates = [];
+  lines.forEach(line => {
+    // Look for brand name + dosage pattern (e.g., "DOLO 650 MG")
+    const doseMatch = line.match(/^([A-Z\s]+?)\s+(\d+\s*(?:MG|MCG|ML|G|IU))/);
+    if(doseMatch) {
+        candidates.push({ name: doseMatch[1].trim() + ' ' + doseMatch[2].trim(), score: 100 });
+    }
+
+    // Look for generic name in brackets (e.g., "[PARACETAMOL]")
+    const genericMatch = line.match(/\[([A-Z\s]+)\]/);
+    if(genericMatch) {
+         candidates.push({ name: genericMatch[1].trim(), score: 90 });
+    }
+
+    // High caps single words that aren't stop words
+    const words = line.split(/\s+/).filter(w => w.length > 3 && !STOP.has(w));
+    if(words.length > 0) {
+        candidates.push({ name: words[0], score: 50 });
+    }
+  });
+
+  if(candidates.length > 0) {
+    // Return highest score
+    return candidates.sort((a,b) => b.score - a.score)[0].name;
+  }
+
+  return bestLine || lines[0] || 'Unknown Medicine';
+}
+
+function showScanLine(show) {
+    const line = document.getElementById('scanLine');
+    if(show) line.classList.remove('hidden');
+    else line.classList.add('hidden');
+}
+
+// Torch & flip
+async function toggleTorch(){
+  if(!stream)return;
+  const track=stream.getVideoTracks()[0];
+  try{torchOn=!torchOn;await track.applyConstraints({advanced:[{torch:torchOn}]});document.getElementById('torchBtn').style.color=torchOn?'#f97316':'#fff'}
+  catch{console.warn('Torch not supported')}
+}
+
+async function flipCamera(){
+  facingMode=facingMode==='environment'?'user':'environment';
+  await startCamera();
+}
+
+function setMode(m){
+  mode=m;
+  document.getElementById('btnAuto').classList.toggle('active',m==='auto');
+  document.getElementById('btnManual').classList.toggle('active',m==='manual');
+}
+
+// Init
+(async()=>{
+  // Load model in background; camera starts from explicit user tap on permission gate.
+  await loadModel();
+  setStatus('dot-idle','Tap "Allow camera" to start scanning');
+  showCameraGate('Tap "Allow camera" to grant permission and start live scanning.');
+})();
+</script>

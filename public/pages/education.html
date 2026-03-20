@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Education</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/education.css">
+</head>
+
+<body class="bg-black text-white min-h-screen bg-grid">
+  <!-- Animated Gradient Background -->
+  <div class="chat-background"></div>
+
+  <!-- Liquid Glass Overlay -->
+  <div class="liquid-glass"></div>
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 px-4 sm:px-6 py-4 chat-content">
+    <div class="top-bar-container">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="./index.html" class="top-bar-btn">
+            <i class="fa-solid fa-arrow-left text-sm"></i>
+            <span class="hidden sm:inline ml-2 text-sm">Back</span>
+          </a>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap text-blue-400 text-sm"></i>
+            <h1 class="text-base sm:text-lg font-semibold">Health Education</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="reportMissingTop" class="top-bar-btn">
+            <i class="fa-solid fa-circle-exclamation text-sm mr-2"></i>
+            <span class="text-sm">Report missing</span>
+          </button>
+          <a href="./settings.html" class="top-bar-btn">
+            <i class="fa-solid fa-gear text-sm mr-1"></i>
+            <span class="text-sm">Settings</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="px-4 sm:px-6 chat-content">
+    <div class="max-w-7xl mx-auto py-8 sm:py-12">
+      <!-- Search and controls -->
+      <section class="glass rounded-2xl p-5 sm:p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
+          <!-- Language selector - moved to top left -->
+          <div id="langSelect" class="relative">
+            <label class="block text-sm text-gray-300 mb-1">Summary language</label>
+            <input type="hidden" id="lang" value="English" />
+            <button type="button"
+              class="w-full rounded-lg bg-white/5 border border-gray-700 hover:border-blue-500 focus:outline-none text-white px-3 py-2 flex items-center justify-between backdrop-blur">
+              <span id="langLabel" class="truncate text-gray-300">English</span>
+              <i class="fa-solid fa-chevron-down text-gray-400 ml-2 transition-transform transform"></i>
+            </button>
+            <div
+              class="hidden absolute top-full z-50 mt-2 w-full bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden max-h-64 overflow-y-auto">
+              <button type="button" data-value="English" data-label="English"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">English</button>
+              <button type="button" data-value="हिन्दी" data-label="हिन्दी (Hindi)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">हिन्दी (Hindi)</button>
+              <button type="button" data-value="ಕನ್ನಡ" data-label="ಕನ್ನಡ (Kannada)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">ಕನ್ನಡ (Kannada)</button>
+              <button type="button" data-value="മലയാളം" data-label="മലയാളം (Malayalam)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">മലയാളം (Malayalam)</button>
+              <button type="button" data-value="தமிழ்" data-label="தமிழ் (Tamil)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">தமிழ் (Tamil)</button>
+              <button type="button" data-value="తెలుగు" data-label="తెలుగు (Telugu)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">తెలుగు (Telugu)</button>
+              <button type="button" data-value="मराठी" data-label="मराठी (Marathi)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">मराठी (Marathi)</button>
+              <button type="button" data-value="বাংলা" data-label="বাংলা (Bengali)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">বাংলা (Bengali)</button>
+              <button type="button" data-value="Français" data-label="Français (French)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">Français (French)</button>
+              <button type="button" data-value="Español" data-label="Español (Spanish)"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">Español (Spanish)</button>
+            </div>
+          </div>
+
+          <!-- Search box -->
+          <div class="lg:col-span-3">
+            <label class="block text-sm text-gray-300 mb-1" for="search">Search disease, topic or resource</label>
+            <div class="relative">
+              <i
+                class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+              <input id="search" type="text" placeholder="e.g., dengue, diabetes, malaria prevention"
+                class="w-full rounded-lg bg-white/5 border border-gray-700 focus:border-blue-500 focus:ring-0 text-white pl-9 pr-3 py-2" />
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Tip: Use keywords like "symptoms", "prevention", "treatment".</p>
+          </div>
+        </div>
+
+        <!-- Content Type Filters -->
+        <div class="mt-5">
+          <label class="block text-sm text-gray-300 mb-2">Filter by content type</label>
+          <div class="flex flex-wrap gap-2">
+            <button id="filterAll"
+              class="filter-btn active px-4 py-2 rounded-lg bg-blue-600 border border-blue-500 text-white text-sm transition">
+              <i class="fa-solid fa-layer-group mr-2"></i>All
+            </button>
+            <button id="filterVideos"
+              class="filter-btn px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-gray-700 text-white text-sm transition">
+              <i class="fa-solid fa-video mr-2"></i>Videos
+            </button>
+            <button id="filterBlogs"
+              class="filter-btn px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-gray-700 text-white text-sm transition">
+              <i class="fa-solid fa-blog mr-2"></i>Blogs
+            </button>
+            <button id="filterSchemes"
+              class="filter-btn px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-gray-700 text-white text-sm transition">
+              <i class="fa-solid fa-file-contract mr-2"></i>Schemes
+            </button>
+          </div>
+          <div id="resultStatus" class="text-xs text-gray-400 mt-2"></div>
+        </div>
+      </section>
+
+      <!-- Resources -->
+      <section class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+          <!-- Videos Section -->
+          <div id="videosSection">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-semibold">Videos</h2>
+              <div class="text-xs text-gray-400"><span id="vcount">0</span> found</div>
+            </div>
+            <div id="videos" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3"></div>
+          </div>
+
+          <!-- Blogs Section -->
+          <div id="blogsSection">
+            <h2 class="text-lg font-semibold mt-6">Blogs & Articles</h2>
+            <div id="blogs" class="space-y-3 mt-3"></div>
+          </div>
+
+          <!-- Schemes Section -->
+          <div id="schemesSection">
+            <h2 class="text-lg font-semibold mt-6">Government Schemes</h2>
+            <div id="schemes" class="space-y-3 mt-3"></div>
+          </div>
+        </div>
+
+        <!-- Preview & AI Summary -->
+        <aside class="glass rounded-2xl p-4 h-max border border-gray-800 sticky top-4">
+          <div id="playerBox"
+            class="thumb rounded-xl overflow-hidden aspect-video flex items-center justify-center text-gray-400 bg-gray-900/50">
+            Select a resource to preview
+          </div>
+
+          <!-- Source Link -->
+          <div id="sourceLink" class="mt-3 hidden">
+            <a id="sourceLinkBtn" href="#" target="_blank" rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 border border-blue-500 text-white text-sm transition">
+              <i class="fa-solid fa-external-link-alt"></i>
+              <span>Visit Source</span>
+            </a>
+          </div>
+
+          <div class="mt-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold">AI Summary</h3>
+              <button id="btnGenerate"
+                class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 border border-blue-500 disabled:opacity-50 text-sm"
+                disabled>
+                Generate
+              </button>
+            </div>
+
+            <div class="mt-3">
+              <div class="relative">
+                <button id="copySummary" class="absolute right-2 top-2 text-xs text-gray-400 hover:text-white z-10">
+                  <i class="fa-solid fa-copy mr-1"></i>Copy
+                </button>
+                <textarea id="summary" rows="10"
+                  class="w-full rounded-xl bg-white/5 border border-gray-700 text-white p-3 text-sm"
+                  placeholder="The AI summary will appear here..." readonly></textarea>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <p class="text-[11px] text-gray-500 mt-6 text-center">This is a demo UI. Connect your backend to generate
+        multilingual summaries.</p>
+    </div>
+  </main>
+
+  <!-- Side Chat: Report Missing Resource -->
+  <div id="rmOverlay" class="fixed inset-0 bg-black/50 hidden"></div>
+  <aside id="rmPanel"
+    class="fixed right-0 top-0 h-full w-full sm:w-[420px] glass border-l border-gray-800 translate-x-full transition-transform duration-300 ease-out z-50 flex flex-col">
+    <div class="p-4 border-b border-gray-800 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-circle-exclamation text-blue-400"></i>
+        <h2 class="font-semibold">Report missing resource</h2>
+      </div>
+      <button id="rmClose" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="p-4 overflow-y-auto">
+      <form id="rmForm" class="space-y-4" novalidate>
+        <div>
+          <label class="block text-sm text-gray-300 mb-1" for="rmTopic">Disease / Topic<span
+              class="text-red-500">*</span></label>
+          <input id="rmTopic" name="topic" type="text" placeholder="e.g., Dengue prevention" required
+            class="w-full rounded-lg bg-white/5 border border-gray-700 focus:border-blue-500 focus:ring-0 text-white px-3 py-2" />
+        </div>
+        <div id="rmTypeSelect" class="relative">
+          <label class="block text-sm text-gray-300 mb-1">Resource type</label>
+          <input type="hidden" id="rmType" name="rtype" value="video" />
+          <button type="button"
+            class="w-full rounded-lg bg-white/5 border border-gray-700 hover:border-blue-500 focus:outline-none text-white px-3 py-2 flex items-center justify-between backdrop-blur">
+            <span id="rmTypeLabel" class="truncate text-gray-300">Video</span>
+            <i class="fa-solid fa-chevron-down text-gray-400 ml-2 transition-transform transform"></i>
+          </button>
+          <div
+            class="hidden absolute z-20 mt-2 w-full bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden">
+            <button type="button" data-value="video" data-label="Video"
+              class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm"><i
+                class="fa-solid fa-video mr-2 text-blue-400"></i>Video</button>
+            <button type="button" data-value="article" data-label="Article/Guide"
+              class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm"><i
+                class="fa-solid fa-file-lines mr-2 text-blue-400"></i>Article/Guide</button>
+            <button type="button" data-value="other" data-label="Other"
+              class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm"><i
+                class="fa-solid fa-ellipsis mr-2 text-blue-400"></i>Other</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm text-gray-300 mb-1" for="rmDetails">Describe what's missing<span
+              class="text-red-500">*</span></label>
+          <textarea id="rmDetails" name="details" rows="5" required
+            class="w-full rounded-2xl bg-white/5 border border-gray-700 focus:border-blue-500 focus:ring-0 text-white px-4 py-3"
+            placeholder="Explain what information you couldn't find, preferred format, language, etc."></textarea>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-300 mb-1" for="rmContact">Email or phone (optional)</label>
+          <input id="rmContact" name="contact" type="text"
+            class="w-full rounded-lg bg-white/5 border border-gray-700 focus:border-blue-500 focus:ring-0 text-white px-3 py-2" />
+        </div>
+        <div class="flex items-start gap-3">
+          <input id="rmConsent" name="consent" type="checkbox" required
+            class="mt-1 h-4 w-4 rounded border-gray-700 bg-white/5 text-blue-600 focus:ring-blue-500" />
+          <label for="rmConsent" class="text-sm text-gray-300">I consent to share this information for improving the
+            education content.</label>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="submit"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 border border-blue-500">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Submit</span>
+          </button>
+          <button type="button" id="rmCancel"
+            class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-gray-700">Cancel</button>
+        </div>
+        <div id="rmSuccess" class="hidden rounded-xl border border-green-800 bg-green-900/20 p-3 text-sm">
+          <div class="flex items-start gap-2">
+            <i class="fa-solid fa-circle-check text-green-400 mt-0.5"></i>
+            <div>
+              <p class="text-green-300">Thanks! Your request was saved locally.</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </aside>
+
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/education.js"></script>
+</body>
+
+</html>

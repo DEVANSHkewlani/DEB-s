@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - Deb's Health Navigator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/settings.css">
+</head>
+<body class="bg-black text-white min-h-screen bg-grid">
+  <!-- Animated Gradient Background -->
+  <div class="chat-background"></div>
+  
+  <!-- Liquid Glass Overlay -->
+  <div class="liquid-glass"></div>
+  
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 px-4 sm:px-6 py-4 chat-content">
+    <div class="top-bar-container">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="./index.html" class="top-bar-btn">
+            <i class="fa-solid fa-arrow-left text-sm"></i>
+            <span class="hidden sm:inline ml-2 text-sm">Back</span>
+          </a>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-gear text-blue-400 text-sm"></i>
+            <h1 class="text-base sm:text-lg font-semibold">Settings</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="px-4 sm:px-6 chat-content">
+    <div class="max-w-3xl mx-auto py-8 sm:py-12">
+      <!-- Appearance Section -->
+      <section class="glass rounded-2xl p-5 sm:p-6 mb-6">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-palette text-blue-400"></i>
+            Appearance
+          </h2>
+          <p class="text-gray-400 text-sm mt-1">Customize how the app looks</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Theme Toggle -->
+          <div class="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-gray-700">
+            <div>
+              <h3 class="font-medium">Theme</h3>
+              <p class="text-sm text-gray-400 mt-0.5">Switch between light and dark mode</p>
+            </div>
+            <button id="themeToggle" class="relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 bg-gray-700">
+              <span id="themeToggleIcon" class="inline-block h-6 w-6 transform rounded-full bg-white transition-transform translate-x-1">
+                <i class="fa-solid fa-moon text-gray-900 text-xs flex items-center justify-center h-full"></i>
+              </span>
+            </button>
+          </div>
+
+          <!-- Current Theme Display -->
+          <div class="flex items-center gap-2 text-sm text-gray-400">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Current theme: <span id="currentTheme" class="text-white font-medium">Dark</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Notifications Section -->
+      <section class="glass rounded-2xl p-5 sm:p-6 mb-6">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-bell text-blue-400"></i>
+            Notifications
+          </h2>
+          <p class="text-gray-400 text-sm mt-1">Manage your notification preferences</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Outbreak Alerts -->
+          <div class="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-gray-700">
+            <div>
+              <h3 class="font-medium">Outbreak Alerts</h3>
+              <p class="text-sm text-gray-400 mt-0.5">Get notified about disease outbreaks near you</p>
+            </div>
+            <button class="toggle-switch active" data-setting="outbreakAlerts">
+              <span class="toggle-slider"></span>
+            </button>
+          </div>
+
+          <!-- Health Bulletins -->
+          <div class="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-gray-700">
+            <div>
+              <h3 class="font-medium">Health Bulletins</h3>
+              <p class="text-sm text-gray-400 mt-0.5">Receive updates from health authorities</p>
+            </div>
+            <button class="toggle-switch active" data-setting="healthBulletins">
+              <span class="toggle-slider"></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Language Section -->
+      <section class="glass rounded-2xl p-5 sm:p-6 mb-6">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-language text-blue-400"></i>
+            Language
+          </h2>
+          <p class="text-gray-400 text-sm mt-1">Choose your preferred language</p>
+        </div>
+
+        <div class="p-4 rounded-lg bg-white/5 border border-gray-700">
+          <select id="languageSelect" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="es">Español (Spanish)</option>
+            <option value="fr">Français (French)</option>
+            <option value="de">Deutsch (German)</option>
+            <option value="zh">中文 (Chinese)</option>
+            <option value="ja">日本語 (Japanese)</option>
+            <option value="ar">العربية (Arabic)</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="glass rounded-2xl p-5 sm:p-6">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-circle-info text-blue-400"></i>
+            About
+          </h2>
+        </div>
+
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+            <span class="text-gray-400">Version</span>
+            <span class="font-medium">1.0.0</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+            <span class="text-gray-400">Build</span>
+            <span class="font-medium">2026.02.10</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-white/5">
+            <span class="text-gray-400">Model</span>
+            <span class="font-medium">Debhy 1.B</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Save Button -->
+      <div class="mt-6 flex justify-end">
+        <button id="saveSettings" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 border border-blue-500 font-medium transition">
+          <i class="fa-solid fa-check mr-2"></i>
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/settings.js"></script>
+</body>
+</html>

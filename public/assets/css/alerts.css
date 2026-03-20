@@ -1,0 +1,66 @@
+/* Alerts Page Specific Styles */
+
+#map {
+  height: 520px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.outbreak-zone {
+  fill-opacity: 0.08;
+  stroke-width: 2;
+}
+
+.outbreak-zone.severe {
+  fill: #ef4444;
+  stroke: #ef4444;
+}
+
+.outbreak-zone.moderate {
+  fill: #f59e0b;
+  stroke: #f59e0b;
+}
+
+.patient-marker {
+  fill: #22c55e;
+  stroke: #16a34a;
+  stroke-width: 1;
+}
+
+/* Prevention Cards */
+.prevention-card {
+  transition: all 0.2s ease;
+}
+
+.prevention-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.prevention-chevron {
+  transition: transform 0.25s ease;
+}
+
+.prevention-body {
+  animation: preventionSlide 0.25s ease;
+}
+
+@keyframes preventionSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,38 @@
+/* Settings Page Specific Styles */
+
+.toggle-switch {
+  position: relative;
+  display: inline-flex;
+  height: 2rem;
+  width: 3.5rem;
+  align-items: center;
+  border-radius: 9999px;
+  background-color: #374151;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.toggle-switch:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.toggle-switch.active {
+  background-color: #3b82f6;
+}
+
+.toggle-slider {
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+  transform: translateX(0.25rem);
+  border-radius: 9999px;
+  background-color: white;
+  transition: transform 0.2s;
+}
+
+.toggle-switch.active .toggle-slider {
+  transform: translateX(1.75rem);
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Test</title>
+    <style>
+        body { background: #000; color: #fff; padding: 20px; font-family: Arial; }
+        #sidebar { position: fixed; left: 0; top: 0; width: 280px; height: 100vh; background: #111; padding: 20px; }
+        #main { margin-left: 300px; padding: 20px; }
+        .session { padding: 10px; margin: 5px 0; background: #222; cursor: pointer; border-radius: 5px; }
+        .session:hover { background: #333; }
+        .message { padding: 10px; margin: 10px 0; background: #1a1a1a; border-radius: 10px; }
+        .user { background: #1e40af; text-align: right; }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2>Chat Sessions</h2>
+        <div id="sessions-list">Loading...</div>
+    </div>
+    
+    <div id="main">
+        <h1>Chat Messages</h1>
+        <div id="messages">Click a session to load messages</div>
+        <br><br>
+        <input type="text" id="input" placeholder="Type a message..." style="width: 300px; padding: 10px; background: #222; color: #fff; border: 1px solid #444; border-radius: 5px;">
+        <button onclick="sendMsg()" style="padding: 10px 20px; background: #1e40af; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Send</button>
+    </div>
+    
+    <script>
+        const API = 'http://localhost:8000/api/v1';
+        let currentSession = null;
+        
+        // Load sessions
+        fetch(`${API}/chat/sessions?limit=10`)
+            .then(r => r.json())
+            .then(data => {
+                const list = document.getElementById('sessions-list');
+                if (data.sessions.length === 0) {
+                    list.innerHTML = '<p>No sessions yet</p>';
+                    return;
+                }
+                list.innerHTML = data.sessions.map(s => `
+                    <div class="session" onclick="loadSession('${s.id}', '${s.title.replace(/'/g, "\\'")}')">
+                        <strong>${s.title}</strong><br>
+                        <small>${new Date(s.created_at).toLocaleString()}</small>
+                    </div>
+                `).join('');
+            })
+            .catch(e => {
+                document.getElementById('sessions-list').innerHTML = `<p style="color: red;">Error: ${e.message}</p>`;
+            });
+        
+        // Load session messages
+        window.loadSession = function(id, title) {
+            currentSession = id;
+            document.getElementById('messages').innerHTML = '<p>Loading...</p>';
+            
+            fetch(`${API}/chat/sessions/${id}`)
+                .then(r => r.json())
+                .then(data => {
+                    const msgs = document.getElementById('messages');
+                    if (data.messages.length === 0) {
+                        msgs.innerHTML = '<p>No messages in this session</p>';
+                        return;
+                    }
+                    msgs.innerHTML = `<h2>${title}</h2>` + data.messages.map(m => `
+                        <div class="message ${m.role}">
+                            <strong>${m.role}:</strong> ${m.content}
+                        </div>
+                    `).join('');
+                })
+                .catch(e => {
+                    document.getElementById('messages').innerHTML = `<p style="color: red;">Error: ${e.message}</p>`;
+                });
+        };
+        
+        // Send message
+        window.sendMsg = function() {
+            const input = document.getElementById('input');
+            const msg = input.value.trim();
+            if (!msg) return;
+            
+            alert('Sending: ' + msg + '\nSession: ' + (currentSession || 'new'));
+            input.value = '';
+        };
+    </script>
+</body>
+</html>

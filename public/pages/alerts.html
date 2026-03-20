@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disease Trends & Health Bulletins</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/alerts.css">
+</head>
+
+<body class="bg-black text-white min-h-screen bg-grid">
+  <!-- Animated Gradient Background -->
+  <div class="chat-background"></div>
+
+  <!-- Liquid Glass Overlay -->
+  <div class="liquid-glass"></div>
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-10 px-4 sm:px-6 py-4 chat-content">
+    <div class="top-bar-container">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="./index.html" class="top-bar-btn">
+            <i class="fa-solid fa-arrow-left text-sm"></i>
+            <span class="hidden sm:inline ml-2 text-sm">Back</span>
+          </a>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-chart-line text-blue-400 text-sm"></i>
+            <h1 class="text-base sm:text-lg font-semibold">Disease Trends</h1>
+          </div>
+        </div>
+        <a href="./settings.html" class="top-bar-btn">
+          <i class="fa-solid fa-gear text-sm mr-1"></i>
+          <span class="text-sm">Settings</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="px-4 sm:px-6 chat-content">
+    <div class="max-w-7xl mx-auto py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Controls & Info -->
+      <section class="glass rounded-2xl p-5 sm:p-6 h-max">
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold">Disease Trends in India</h2>
+          <p class="text-gray-400 text-sm">Real-time disease outbreak data across Indian states and regions.</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Disease filter -->
+          <div id="diseaseSelect" class="relative">
+            <label class="block text-sm text-gray-300 mb-1">Filter by Disease</label>
+            <input type="hidden" id="disease" value="all" />
+            <button type="button"
+              class="w-full rounded-lg bg-white/5 border border-gray-700 hover:border-blue-500 text-white px-3 py-2 flex items-center justify-between backdrop-blur">
+              <span id="diseaseLabel" class="truncate text-gray-300">All Diseases</span>
+              <i class="fa-solid fa-chevron-down text-gray-400 ml-2 transition-transform transform"></i>
+            </button>
+            <div
+              class="hidden absolute z-20 mt-2 w-full bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden max-h-64 overflow-y-auto">
+              <button type="button" data-value="all" data-label="All Diseases"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">All Diseases</button>
+              <button type="button" data-value="dengue" data-label="Dengue"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500"></span>Dengue
+              </button>
+              <button type="button" data-value="malaria" data-label="Malaria"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>Malaria
+              </button>
+              <button type="button" data-value="covid" data-label="COVID-19"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-purple-500"></span>COVID-19
+              </button>
+              <button type="button" data-value="influenza" data-label="Influenza"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-blue-500"></span>Influenza
+              </button>
+              <button type="button" data-value="typhoid" data-label="Typhoid"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-orange-500"></span>Typhoid
+              </button>
+              <button type="button" data-value="cholera" data-label="Cholera"
+                class="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-green-500"></span>Cholera
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Disease Reports -->
+          <div class="mt-4">
+            <h3 class="text-sm font-semibold mb-3 text-gray-400">Active Disease Reports</h3>
+            <div id="diseaseList" class="space-y-2"></div>
+          </div>
+
+          <button id="btnRefresh"
+            class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 border border-blue-500 mt-4">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            Refresh Data
+          </button>
+          <div id="liveRefreshStatus" class="mt-2 text-xs text-gray-400 hidden"></div>
+
+          <!-- Government Sources -->
+          <div class="mt-6">
+            <h3 class="font-semibold text-sm mb-3 text-gray-400">Official Sources</h3>
+            <div class="space-y-2 text-xs">
+              <a href="https://www.mohfw.gov.in/" target="_blank" rel="noopener"
+                class="flex items-center gap-2 text-gray-300 hover:text-white transition">
+                <i class="fa-solid fa-external-link text-sm"></i>
+                <span>Ministry of Health & Family Welfare</span>
+              </a>
+              <a href="https://nvbdcp.gov.in/" target="_blank" rel="noopener"
+                class="flex items-center gap-2 text-gray-300 hover:text-white transition">
+                <i class="fa-solid fa-external-link text-sm"></i>
+                <span>National Vector Borne Disease Control</span>
+              </a>
+              <a href="https://idsp.nic.in/" target="_blank" rel="noopener"
+                class="flex items-center gap-2 text-gray-300 hover:text-white transition">
+                <i class="fa-solid fa-external-link text-sm"></i>
+                <span>Integrated Disease Surveillance</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Prevention Steps for Rising Diseases -->
+          <div id="preventionSection" class="mt-6 hidden">
+            <h3 class="font-semibold text-sm mb-3 text-gray-400 flex items-center gap-2">
+              <i class="fa-solid fa-shield-virus text-blue-400"></i>
+              Prevention Steps
+            </h3>
+            <p class="text-xs text-gray-500 mb-3">For diseases with rising trends</p>
+            <div id="preventionList" class="space-y-3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Map + Trends -->
+      <section class="lg:col-span-2 space-y-4">
+        <div id="map" class="glass" style="min-height: 520px;">
+          <div id="mapLoading" class="flex items-center justify-center h-full text-gray-400">
+            <div class="text-center">
+              <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i>
+              <p>Loading map...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disease Trends Chart -->
+        <div class="glass rounded-2xl p-4 border border-gray-800">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">Disease Trends Over Time</h3>
+            <div class="text-xs text-gray-400">Last 6 months</div>
+          </div>
+          <div class="relative" style="height: 300px;">
+            <canvas id="trendsChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Health Bulletins -->
+        <div class="glass rounded-2xl p-4 border border-gray-800">
+          <h3 class="font-semibold mb-3">Recent Health Bulletins</h3>
+          <div id="bulletins" class="space-y-3"></div>
+        </div>
+      </section>
+    </div>
+
+    <p class="text-[11px] text-gray-500 mt-2 text-center">Data sourced from government health bulletins and disease
+      surveillance systems. Updated regularly.</p>
+  </main>
+
+  <script src="../assets/js/common.js?v=2"></script>
+  <script src="../assets/js/alerts.js?v=2"></script>
+</body>
+
+</html>

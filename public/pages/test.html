@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Test</title>
+</head>
+<body>
+    <h1>Chatbot API Test</h1>
+    <div id="status">Testing...</div>
+    <div id="sessions"></div>
+    
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        
+        async function testAPI() {
+            const statusEl = document.getElementById('status');
+            const sessionsEl = document.getElementById('sessions');
+            
+            try {
+                // Test health endpoint
+                const healthRes = await fetch(`${API_BASE}/health`);
+                const health = await healthRes.json();
+                statusEl.innerHTML = `<p style="color: green;">✓ Backend is healthy: ${health.service}</p>`;
+                
+                // Test sessions endpoint
+                const sessionsRes = await fetch(`${API_BASE}/chat/sessions?limit=5`);
+                const sessionsData = await sessionsRes.json();
+                
+                if (sessionsData.sessions.length > 0) {
+                    sessionsEl.innerHTML = '<h2>Recent Sessions:</h2>' + 
+                        sessionsData.sessions.map(s => `
+                            <div style="border: 1px solid #ccc; padding: 10px; margin: 5px;">
+                                <strong>${s.title}</strong><br>
+                                <small>ID: ${s.id}</small><br>
+                                <small>Created: ${s.created_at}</small>
+                            </div>
+                        `).join('');
+                } else {
+                    sessionsEl.innerHTML = '<p>No sessions found</p>';
+                }
+            } catch (error) {
+                statusEl.innerHTML = `<p style="color: red;">✗ Error: ${error.message}</p>`;
+                console.error('Test failed:', error);
+            }
+        }
+        
+        testAPI();
+    </script>
+</body>
+</html>
