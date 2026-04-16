@@ -34,15 +34,21 @@ EMBEDDING_MODEL_NAME = "l3cube-pune/indic-sentence-bert-nli"
 CHROMA_PATH = "./chroma_db"
 RRF_K = 60
 
-# Initialize Models
-llm = ChatGroq(model_name=GROQ_MODEL, temperature=0, groq_api_key=os.getenv("GROQ_API_KEY"))
-intent_llm = llm.with_structured_output(IntentOutput)
-
 # Lazy loaders
 _embed_model = None
 _chroma_client = None
 _bm25 = None
 _doc_map = None
+_llm = None
+_intent_llm = None
+
+def get_llm():
+    global _llm, _intent_llm
+    if _llm is None:
+        api_key = os.getenv("GROQ_API_KEY", "dummy_key")
+        _llm = ChatGroq(model_name=GROQ_MODEL, temperature=0, groq_api_key=api_key)
+        _intent_llm = _llm.with_structured_output(IntentOutput)
+    return _llm, _intent_llm
 
 # Chat History Storage (DB-based now)
 MAX_HISTORY_LEN = 10
@@ -173,7 +179,8 @@ async def get_rag_context(query: str, session_id: str, region_hint: str = None) 
     # 1. Intent Analysis
 
     try:
-        intent = await intent_llm.ainvoke(
+        _, intent_llm_model = get_llm()
+        intent = await intent_llm_model.ainvoke(
             INTENT_PROMPT + f"\n\nQuery: {query}\nHistory: {history_str}"
         )
     except Exception as e:
@@ -367,7 +374,8 @@ async def perform_rag_query(query: str, session_id: str, region_hint: str = None
     is_knowledge_gap = bool(data.get("is_knowledge_gap", False))
     
     final_prompt = ChatPromptTemplate.from_template(SYSTEM_PROMPT)
-    chain = final_prompt | llm | StrOutputParser()
+    llm_model, _ = get_llm()
+    chain = final_prompt | llm_model | StrOutputParser()
     
     # Prepare history context for the LLM
     db_history = db.get_chat_messages(session_id)
@@ -440,7 +448,8 @@ async def stream_rag_query(query: str, session_id: str, region_hint: str = None,
     
 
     try:
-        intent = await intent_llm.ainvoke(
+        _, intent_llm_model = get_llm()
+        intent = await intent_llm_model.ainvoke(
             INTENT_PROMPT + f"\n\nQuery: {query}\nHistory: {history_str}"
         )
     except Exception as e:
@@ -562,7 +571,8 @@ async def stream_rag_query(query: str, session_id: str, region_hint: str = None,
     yield json.dumps({"type": "status", "content": "Generating response..."}) + "\n"
     
     final_prompt = ChatPromptTemplate.from_template(SYSTEM_PROMPT)
-    chain = final_prompt | llm | StrOutputParser()
+    llm_model, _ = get_llm()
+    chain = final_prompt | llm_model | StrOutputParser()
     
     full_history_str = "\n".join([f"User: {msg['content']}" if msg['role'] == "user" else f"Assistant: {msg['content']}" 
                              for msg in db_history[-5:]])
@@ -594,7 +604,8 @@ async def stream_rag_query(query: str, session_id: str, region_hint: str = None,
         try:
              # Simple title generation
              title_prompt = f"Generate a short (3-5 words) title for this health chat based on the query: '{query}'. Do not use quotes."
-             title = await llm.ainvoke(title_prompt)
+             llm_model, _ = get_llm()
+             title = await llm_model.ainvoke(title_prompt)
              new_title = title.content.strip().replace('"', '')
              db.update_session_title(session_id, new_title)
              yield json.dumps({"type": "session_rename", "title": new_title}) + "\n"

@@ -7,7 +7,7 @@ import os
 # Add parent directory to path to import scraper.db and rag_logic
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from scraper.db import DatabaseManager
-from api.rag_logic import llm 
+from api.rag_logic import get_llm 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
@@ -63,7 +63,8 @@ async def generate_summary(request: GenerateSummaryRequest):
             content_to_summarize = "General health information based on available metadata."
 
         prompt = ChatPromptTemplate.from_template(SUMMARY_PROMPT)
-        chain = prompt | llm | StrOutputParser()
+        llm_model, _ = get_llm()
+        chain = prompt | llm_model | StrOutputParser()
         
         summary = chain.invoke({
             "type": request.type,
