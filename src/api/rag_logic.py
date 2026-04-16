@@ -3,13 +3,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 from pydantic import BaseModel
-import chromadb
 from typing import List, Dict, Any
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from sentence_transformers import SentenceTransformer
-from rank_bm25 import BM25Okapi
 import numpy as np
 from scraper.db import DatabaseManager
 import json
@@ -54,6 +51,7 @@ MAX_HISTORY_LEN = 10
 def get_embedding_model():
     global _embed_model
     if _embed_model is None:
+        from sentence_transformers import SentenceTransformer
         _embed_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
     return _embed_model
 
@@ -62,6 +60,7 @@ def get_embedding_model():
 def get_chroma_collection():
     global _chroma_client
     if _chroma_client is None:
+        import chromadb
         _chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
     # Get or create collection
     return _chroma_client.get_or_create_collection(
@@ -72,6 +71,7 @@ def get_chroma_collection():
 def get_bm25_index():
     global _bm25, _doc_map
     if _bm25 is None:
+        from rank_bm25 import BM25Okapi
         db = DatabaseManager()
         docs = db.execute_query("SELECT id, title, content FROM unified_search_index", fetch="all")
         if not docs:
