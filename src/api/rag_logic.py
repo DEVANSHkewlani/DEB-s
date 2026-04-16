@@ -397,7 +397,11 @@ async def perform_rag_query(query: str, session_id: str, region_hint: str = None
         )
         sources = []
     else:
-        response = await chain.ainvoke({"context": combined_context, "question": query, "language": language})
+        try:
+            response = await chain.ainvoke({"context": combined_context, "question": query, "language": language})
+        except Exception as e:
+            print(f"Error during LLM generation: {e}")
+            response = "I am currently experiencing high traffic or an API error. Please try again later. (Error: API Unavailable)"
     
     # Update History in DB
     db.add_chat_message(session_id, "user", query)
@@ -568,10 +572,16 @@ async def stream_rag_query(query: str, session_id: str, region_hint: str = None,
          combined_context += "\n\nSYSTEM INSTRUCTION: The user has asked a specific health question. You MUST answer it using the Retrieved Documents above. Do NOT offer generic help, just answer the question."
 
     full_response = ""
-    async for chunk in chain.astream({"context": combined_context, "question": query, "language": language}):
-        if chunk:
-            full_response += chunk
-            yield json.dumps({"type": "token", "content": chunk}) + "\n"
+    try:
+        async for chunk in chain.astream({"context": combined_context, "question": query, "language": language}):
+            if chunk:
+                full_response += chunk
+                yield json.dumps({"type": "token", "content": chunk}) + "\n"
+    except Exception as e:
+        print(f"Error during LLM generation: {e}")
+        error_msg = "\nI am currently experiencing high traffic or an API error. Please try again later."
+        full_response += error_msg
+        yield json.dumps({"type": "token", "content": error_msg}) + "\n"
 
     # Update History in DB
     db.add_chat_message(session_id, "user", query)

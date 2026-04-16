@@ -13,9 +13,12 @@ app = FastAPI(
 )
 
 # CORS configuration
+allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "*")
+origins = [origin.strip() for origin in allowed_origins_str.split(',')] if allowed_origins_str != "*" else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust in production
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -44,4 +47,5 @@ async def root():
 app.mount("/", StaticFiles(directory=public_dir, html=True), name="public")
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    is_prod = os.getenv("ENV", "development").lower() == "production"
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=not is_prod)

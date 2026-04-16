@@ -199,7 +199,7 @@ async def lookup_medicine(name: str, db: DatabaseManager = Depends(get_db)):
 
     except Exception as e:
         logger.error(f"Groq AI Lookup Error: {e}")
-        raise HTTPException(status_code=404, detail="Medicine not found")
+        raise HTTPException(status_code=503, detail="Medicine lookup failed (AI Service Unavailable).")
 
 
 @router.post("/chat", response_model=ChatResponse)

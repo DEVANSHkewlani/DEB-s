@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    container_name: deb_health_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=deb_health_db
+      - DB_USER=admin
+      - DB_PASSWORD=adminpassword
+      - DB_PORT=5432
+      - ENV=production
+      - ALLOWED_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - chroma_data:/app/chroma_db
+
+  db:
+    image: postgres:15-alpine
+    container_name: deb_health_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: deb_health_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d deb_health_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  chroma_data:

@@ -41,6 +41,12 @@ class DatabaseManager:
     def put_connection(self, conn):
         self._pool.putconn(conn)
 
+    def _validate_columns(self, columns):
+        invalid_cols = [c for c in columns if not c.replace('_', '').isalnum()]
+        if invalid_cols:
+            raise ValueError(f"Invalid column names detected: {invalid_cols}")
+
+
     def execute_query(self, query, params=None, fetch=False):
         conn = self.get_connection()
         try:
@@ -64,6 +70,7 @@ class DatabaseManager:
 
     def upsert_disease(self, disease_data):
         columns = list(disease_data.keys())
+        self._validate_columns(columns)
         values = [disease_data[col] for col in columns]
         
         update_clauses = []
@@ -93,6 +100,7 @@ class DatabaseManager:
 
     def upsert_guideline(self, guideline_data):
         columns = list(guideline_data.keys())
+        self._validate_columns(columns)
         values = [guideline_data[col] for col in columns]
         
         insert_query = f"""
@@ -107,6 +115,7 @@ class DatabaseManager:
 
     def upsert_outbreak(self, outbreak_data):
         columns = list(outbreak_data.keys())
+        self._validate_columns(columns)
         values = [outbreak_data[col] for col in columns]
         
         insert_query = f"""
@@ -121,6 +130,7 @@ class DatabaseManager:
 
     def upsert_trend(self, trend_data):
         columns = list(trend_data.keys())
+        self._validate_columns(columns)
         values = [trend_data[col] for col in columns]
         
         insert_query = f"""
@@ -143,6 +153,7 @@ class DatabaseManager:
             data['url'] = data.pop('source_url')
 
         columns = list(data.keys())
+        self._validate_columns(columns)
         values = [data[col] for col in columns]
         
         insert_query = f"""
@@ -157,6 +168,7 @@ class DatabaseManager:
 
     def log_scraper_run(self, log_data):
         columns = list(log_data.keys())
+        self._validate_columns(columns)
         values = [log_data[col] for col in columns]
         
         insert_query = f"""
@@ -188,6 +200,7 @@ class DatabaseManager:
 
     def insert_user_report(self, report_data):
         columns = list(report_data.keys())
+        self._validate_columns(columns)
         values = [report_data[col] for col in columns]
         
         insert_query = f"""
@@ -691,6 +704,7 @@ class DatabaseManager:
     def upsert_bulletin_text(self, data):
         """Insert raw bulletin text. ON CONFLICT (url) DO NOTHING."""
         columns = list(data.keys())
+        self._validate_columns(columns)
         values = [data[col] for col in columns]
         query = f"""
             INSERT INTO bulletin_texts ({', '.join(columns)})
@@ -713,6 +727,7 @@ class DatabaseManager:
         Later reports are always more complete, so we keep the max.
         """
         columns = list(outbreak_data.keys())
+        self._validate_columns(columns)
         values = [outbreak_data[col] for col in columns]
 
         update_clauses = []
@@ -741,6 +756,7 @@ class DatabaseManager:
         Upsert trend using GREATEST for cases_count.
         """
         columns = list(trend_data.keys())
+        self._validate_columns(columns)
 
         # Auto-calculate period_end if missing
         if 'period_end' not in columns and 'period_start' in trend_data and 'period_type' in trend_data:
